@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fima Premium vs Lecaps / Ahorro Plus</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --card: #1a2332;
+      --text: #e7ecf3;
+      --muted: #9aa8bc;
+      --accent: #3d9cf0;
+      --pos: #3ecf8e;
+      --neg: #f07178;
+      --border: #2a3548;
+      --warn: #e6c07b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.45;
+      padding: 1rem 1rem 3rem;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; margin: 0 0 .35rem; }
+    h2 { font-size: 1.05rem; margin: 1.6rem 0 .6rem; color: var(--accent); }
+    .sub { color: var(--muted); font-size: .92rem; margin-bottom: 1rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; font-size: .88rem; color: var(--muted); margin-bottom: 1rem; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem; margin-bottom: 1rem;
+    }
+    .warn {
+      background: #2a2418; border: 1px solid #5a4a22; color: var(--warn);
+      border-radius: 10px; padding: .75rem 1rem; margin-bottom: .75rem; font-size: .88rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    th, td { text-align: left; padding: .55rem .4rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .pos { color: var(--pos); }
+    .neg { color: var(--neg); }
+    .tag {
+      display: inline-block; font-size: .72rem; padding: .15rem .45rem;
+      border-radius: 999px; background: #243044; color: var(--muted); margin-left: .35rem;
+    }
+    .tag.ok { background: #1e3a2f; color: var(--pos); }
+    .tag.bad { background: #3a2226; color: var(--neg); }
+    .foot { color: var(--muted); font-size: .8rem; margin-top: 1.5rem; }
+    .foot a { color: var(--accent); }
+    .grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .85rem; }
+    .kpi .l { color: var(--muted); font-size: .75rem; text-transform: uppercase; }
+    .kpi .v { font-size: 1.25rem; font-weight: 650; margin-top: .2rem; font-variant-numeric: tabular-nums; }
+    .kpi .s { color: var(--muted); font-size: .78rem; margin-top: .15rem; }
+    @media (max-width: 640px) {
+      table { font-size: .8rem; }
+      th, td { padding: .45rem .25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Fima Premium vs Ahorro Plus / Lecaps</h1>
+    <p class="sub">Comparación diaria de cuotapartes (neto de fees del fondo). Datos públicos — sin inventar números.</p>
+    <div class="meta" id="meta">Cargando…</div>
+    <div id="warnings"></div>
+
+    <h2>Comparación principal (mismo gerente)</h2>
+    <p class="sub">Fima Premium Clase A (money market, <strong>T+0</strong>) vs Fima Ahorro Plus Clase A (renta fija corto, <strong>T+1</strong>). Galicia Asset Management.</p>
+    <div class="grid" id="kpi-primary"></div>
+
+    <div class="card" style="margin-top:1rem; overflow-x:auto">
+      <table id="tbl-funds">
+        <thead>
+          <tr>
+            <th>Instrumento</th>
+            <th>Liquidez</th>
+            <th class="num">Últ. paso</th>
+            <th class="num">TNA*</th>
+            <th class="num">MTD</th>
+            <th class="num">30d</th>
+            <th class="num">YTD</th>
+            <th class="num">$/día · 100M</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="sub" style="margin:.6rem 0 0">* TNA del último paso entre fechas con VCP: (1+r)^(365/días_calendario)−1. TEA usa la misma capitalización.</p>
+    </div>
+
+    <h2>Spread vs Fima Premium (por $100M)</h2>
+    <div class="card" style="overflow-x:auto">
+      <table id="tbl-spread">
+        <thead>
+          <tr>
+            <th>Fondo</th>
+            <th>Ventana</th>
+            <th class="num">Spread</th>
+            <th class="num">bps</th>
+            <th class="num">$ / 100M</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h2>Riesgo / caminos negativos</h2>
+    <div class="card" style="overflow-x:auto">
+      <table id="tbl-risk">
+        <thead>
+          <tr>
+            <th>Fondo</th>
+            <th class="num">Obs. negativas</th>
+            <th class="num">Max drawdown</th>
+            <th>Pico → valle</th>
+            <th>~ % Lecaps</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h2>Nota de liquidez</h2>
+    <div class="card">
+      <p style="margin:0; font-size:.92rem">
+        <strong>T+0</strong> (Premium): el rescate se acredita el mismo día hábil.<br/>
+        <strong>T+1</strong> (Ahorro Plus): el capital está un día más en el fondo. Ese día extra es un costo de oportunidad real si necesitás la plata mañana — no está metido en el spread de cuotaparte.
+      </p>
+    </div>
+
+    <h2>Lecaps individuales (planilla)</h2>
+    <div class="card" id="lecaps-box">
+      <p class="sub" style="margin:0">Sin fuente pública Byma usable sin API key. Tickers configurados en <code>config.json</code>; filas vacías a propósito (no se inventan tasas).</p>
+    </div>
+
+    <h2>Fuentes y método</h2>
+    <div class="card" id="sources"></div>
+
+    <p class="foot">
+      Repo: <a href="https://github.com/NauBernues/fima-vs-lecaps">NauBernues/fima-vs-lecaps</a> ·
+      No es asesoramiento financiero · Cuotaparte ya neta de honorarios del FCI ·
+      Actualización vía GitHub Action (ver README).
+    </p>
+  </div>
+  <script>
+    const fmtPct = (x, d=2) => x == null || Number.isNaN(x) ? "—" : ((x*100).toLocaleString("es-AR",{minimumFractionDigits:d,maximumFractionDigits:d}) + "%");
+    const fmtBps = (x) => x == null ? "—" : (x.toLocaleString("es-AR",{maximumFractionDigits:0}) + " bps");
+    const fmtMoney = (x) => x == null ? "—" : ("$ " + Math.round(x).toLocaleString("es-AR"));
+    const cls = (x) => x == null ? "" : (x >= 0 ? "pos" : "neg");
+
+    function stepLabel(m) {
+      if (!m || !m.last_step) return "—";
+      const s = m.last_step;
+      return fmtPct(s.return, 4) + ` (${s.prev_date}→${s.date}, ${s.calendar_days}d)`;
+    }
+
+    fetch("./data.json?ts=" + Date.now())
+      .then(r => { if (!r.ok) throw new Error("No se pudo cargar data.json"); return r.json(); })
+      .then(data => {
+        document.getElementById("meta").innerHTML = `
+          <span>Última generación: <strong>${data.generated_at_art}</strong> (${data.timezone})</span>
+          <span>As-of series: <strong>${data.as_of}</strong></span>
+          <span>Nocional: <strong>$ ${(data.notional_ars).toLocaleString("es-AR")}</strong></span>
+        `;
+        const w = document.getElementById("warnings");
+        (data.warnings || []).forEach(t => {
+          const d = document.createElement("div");
+          d.className = "warn";
+          d.textContent = t;
+          w.appendChild(d);
+        });
+
+        const order = ["premium", "ahorro_plus", "balanz_lecaps"];
+        const tb = document.querySelector("#tbl-funds tbody");
+        order.forEach(id => {
+          const f = data.funds[id]; if (!f) return;
+          const m = f.metrics || {};
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${f.name}<span class="tag">${f.role}</span>
+              ${f.meets_70pct_lecaps ? '<span class="tag ok">>70% Lecaps</span>' : '<span class="tag">Lecaps ~'+(f.lecaps_pct_approx ?? "?")+'%</span>'}
+            </td>
+            <td>${f.liquidity || "—"}</td>
+            <td class="num ${cls(m.last_step && m.last_step.return)}">${m.last_step ? fmtPct(m.last_step.return, 4) : "—"}</td>
+            <td class="num">${fmtPct(m.last_tna)}</td>
+            <td class="num ${cls(m.mtd && m.mtd.return)}">${m.mtd ? fmtPct(m.mtd.return) : "—"}</td>
+            <td class="num ${cls(m.rolling_30d && m.rolling_30d.return)}">${m.rolling_30d ? fmtPct(m.rolling_30d.return) : "—"}</td>
+            <td class="num ${cls(m.ytd && m.ytd.return)}">${m.ytd ? fmtPct(m.ytd.return) : "—"}</td>
+            <td class="num">${fmtMoney(f.dollar_yield_per_100m_per_calendar_day_last_step)}</td>
+          `;
+          tb.appendChild(tr);
+        });
+
+        // KPIs primary spread YTD / 30d
+        const sp = (data.spreads_vs_premium || {}).ahorro_plus || {};
+        const kpi = document.getElementById("kpi-primary");
+        [["Spread MTD", sp.mtd], ["Spread 30d", sp.rolling_30d], ["Spread YTD", sp.ytd]].forEach(([label, block]) => {
+          const el = document.createElement("div");
+          el.className = "kpi";
+          if (!block) {
+            el.innerHTML = `<div class="l">${label}</div><div class="v">—</div><div class="s">sin dato alineado</div>`;
+          } else {
+            el.innerHTML = `<div class="l">${label}</div>
+              <div class="v ${cls(block.spread)}">${fmtPct(block.spread)} · ${fmtBps(block.spread_bps)}</div>
+              <div class="s">${fmtMoney(block.dollar_spread_100m)} · ${block.compare_window}</div>`;
+          }
+          kpi.appendChild(el);
+        });
+
+        const ts = document.querySelector("#tbl-spread tbody");
+        ["ahorro_plus", "balanz_lecaps"].forEach(id => {
+          const name = data.funds[id]?.name || id;
+          const blocks = data.spreads_vs_premium[id] || {};
+          ["mtd", "rolling_30d", "ytd"].forEach(k => {
+            const b = blocks[k];
+            const tr = document.createElement("tr");
+            if (!b) {
+              tr.innerHTML = `<td>${name}</td><td>${k}</td><td class="num" colspan="3">—</td>`;
+            } else {
+              tr.innerHTML = `
+                <td>${name}</td>
+                <td>${k.toUpperCase()} · ${b.compare_window}</td>
+                <td class="num ${cls(b.spread)}">${fmtPct(b.spread)}</td>
+                <td class="num ${cls(b.spread_bps)}">${fmtBps(b.spread_bps)}</td>
+                <td class="num ${cls(b.dollar_spread_100m)}">${fmtMoney(b.dollar_spread_100m)}</td>`;
+            }
+            ts.appendChild(tr);
+          });
+        });
+
+        const trisk = document.querySelector("#tbl-risk tbody");
+        order.forEach(id => {
+          const f = data.funds[id]; if (!f) return;
+          const m = f.metrics || {};
+          const dd = m.max_drawdown || {};
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${f.name}</td>
+            <td class="num">${m.negative_obs ?? "—"}</td>
+            <td class="num ${cls(dd.max_drawdown)}">${dd.max_drawdown != null ? fmtPct(dd.max_drawdown, 3) : "—"}</td>
+            <td>${dd.peak_date && dd.trough_date ? (dd.peak_date + " → " + dd.trough_date) : "—"}</td>
+            <td>${f.lecaps_pct_approx != null ? (f.lecaps_pct_approx + "%") : "—"} <span class="sub">(${f.composition_as_of || "?"})</span></td>`;
+          trisk.appendChild(tr);
+        });
+
+        const lb = document.getElementById("lecaps-box");
+        const lt = data.lecap_tickers || {};
+        lb.innerHTML = `<p style="margin:0 0 .5rem"><strong>Estado:</strong> ${lt.status || "—"}</p>
+          <p class="sub" style="margin:0 0 .5rem">${lt.note || ""}</p>
+          <p style="margin:0; font-size:.88rem">Tickers configurados: <code>${(lt.configured||[]).join(", ") || "—"}</code></p>`;
+
+        const src = document.getElementById("sources");
+        const meth = data.methodology || {};
+        src.innerHTML = `
+          <ul style="margin:0 0 .75rem; padding-left:1.1rem; font-size:.88rem">
+            ${(data.sources||[]).map(s => `<li><strong>${s.name}</strong> — ${s.role}<br/><a href="${s.url}">${s.url}</a></li>`).join("")}
+          </ul>
+          <p style="margin:0; font-size:.85rem; color:var(--muted)">
+            ${meth.returns || ""} ${meth.calendar_days || ""} ${meth.fees || ""}<br/>
+            Composición: ${meth.composition_gate || ""}<br/>
+            CAFCI IDs: Premium fondo <code>445</code> / clase <code>575</code>; Ahorro Plus fondo <code>641</code> / clase <code>1008</code>.
+          </p>
+          <p style="margin:.6rem 0 0; font-size:.82rem; color:var(--muted)">
+            ${(data.funds.ahorro_plus && data.funds.ahorro_plus.composition_note) || ""}
+          </p>
+        `;
+      })
+      .catch(err => {
+        document.getElementById("meta").textContent = "Error: " + err.message;
+      });
+  </script>
+</body>
+</html>

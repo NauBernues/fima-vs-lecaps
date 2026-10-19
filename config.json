@@ -1,0 +1,43 @@
+{
+  "funds": [
+    {
+      "id": "premium",
+      "name": "Fima Premium — Clase A",
+      "role": "money_market",
+      "liquidity": "T+0",
+      "cafci_fondo_id": 445,
+      "cafci_clase_id": 575,
+      "argentinadatos_categoria": "mercadoDinero",
+      "argentinadatos_nombre": "Fima Premium - Clase A"
+    },
+    {
+      "id": "ahorro_plus",
+      "name": "Fima Ahorro Plus — Clase A",
+      "role": "primary_compare",
+      "liquidity": "T+1",
+      "cafci_fondo_id": 641,
+      "cafci_clase_id": 1008,
+      "argentinadatos_categoria": "rentaFija",
+      "argentinadatos_nombre": "Fima Ahorro Plus - Clase A"
+    },
+    {
+      "id": "balanz_lecaps",
+      "name": "Balanz Lecaps — Clase A",
+      "role": "secondary_lecaps",
+      "liquidity": "verificar ficha",
+      "cafci_fondo_id": null,
+      "cafci_clase_id": null,
+      "argentinadatos_categoria": "rentaFija",
+      "argentinadatos_nombre": "Balanz Lecaps - Clase A"
+    }
+  ],
+  "lecap_tickers": ["S16A5", "S28A5", "S16Y5", "S30Y5", "S18J5", "S30J5"],
+  "lookback_calendar_days": 320,
+  "notional_ars": 100000000,
+  "argentinadatos_base": "https://api.argentinadatos.com/v1/finanzas/fci",
+  "cafci_api_base": "https://api.cafci.org.ar",
+  "notes": {
+    "composition": "Ahorro Plus ≈23.9% Lecaps (CNV 2026-10-02). Balanz Lecaps ≈62.5% (CNV 2026-09-18). Ninguno >70% Lecaps puras verificado.",
+    "cafci": "api.cafci.org.ar requiere auth (401). Usamos ArgentinaDatos que republica el cierre CAFCI."
+  }
+}
