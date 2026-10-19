@@ -8,13 +8,17 @@
   "notional_ars": 100000000,
   "methodology": { "...": "..." },
   "sources": [{ "name": "", "url": "", "role": "" }],
+  "base_fund": "premium",
+  "comparisons": [{ "id": "primary", "label": "", "base": "premium", "compare": "balanz_lecaps", "description": "" }],
+  "benchmarks": { "pure_lecaps_portfolio": { "status": "pendiente", "composition": [], "rules": null } },
   "funds": {
     "premium": {
       "name": "",
       "liquidity": "T+0",
       "cafci_fondo_id": 445,
       "cafci_clase_id": 575,
-      "lecaps_pct_approx": 0,
+      "lecaps_exposure": { "pct": null, "as_of": null, "source": null, "note": "" },
+      "lecaps_pct_approx": null,
       "meets_70pct_lecaps": false,
       "metrics": {
         "last_step": { "date": "", "prev_date": "", "calendar_days": 1, "return": 0.0 },
@@ -29,7 +33,7 @@
     }
   },
   "spreads_vs_premium": {
-    "ahorro_plus": {
+    "balanz_lecaps": {
       "mtd": { "spread": 0.0, "spread_bps": 0.0, "dollar_spread_100m": 0.0 }
     }
   },

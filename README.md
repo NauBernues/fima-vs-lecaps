@@ -1,9 +1,9 @@
-# Fima Premium vs Ahorro Plus / Lecaps
+# Fima Premium vs Balanz Lecaps / Ahorro Plus
 
 Dashboard estático (HTML + `data.json`) que compara el rendimiento diario de:
 
-1. **Primario:** Fima Premium Clase A (money market, **T+0**) vs Fima Ahorro Plus Clase A (**T+1**), mismo gerente Galicia.
-2. **Secundario:** Balanz Lecaps Clase A (categoría CAFCI Renta Fija LECAP), como proxy más cercano a Lecaps con dato público.
+1. **Primario:** Fima Premium Clase A (money market, **T+0**) vs Balanz Lecaps Clase A (**T+0**), fondo de Lecaps más cercano verificado (≈62,5% Lecaps, CNV 2026-09-18).
+2. **Secundario:** Fima Ahorro Plus Clase A (**T+1**) — mismo gestor, renta fija corta mixta (≈23,9% Lecaps, CNV 2026-10-02).
 3. **Lecaps ticker-a-ticker** (planilla): *sin fuente pública Byma* → filas vacías, no se inventan tasas.
 
 ## Ver online
@@ -34,13 +34,16 @@ Dashboard estático (HTML + `data.json`) que compara el rendimiento diario de:
 |-------|----------|--------------|
 | Fima Premium | 445 | 575 |
 | Fima Ahorro Plus | 641 | 1008 |
-| Balanz Lecaps | (pendiente) | (pendiente) |
+| Balanz Lecaps | 1120 | 3671 |
+
+IDs verificados en la [Planilla Diaria CAFCI](https://api.pub.cafci.org.ar/pb_get) (columnas *Codigo CNV* = fondo, *Código CAFCI* = clase).
 
 ### Composición (gate de Ray: >70% Lecaps)
 
-- **Fima Ahorro Plus:** ≈ **23,9%** Lecaps (CNV 2026-10-02). **No cumple >70%.** Se mantiene como comparación same-manager.
-- **Balanz Lecaps:** ≈ **62,5%** letras/Lecaps (CNV 2026-09-18). Mejor proxy dedicado encontrado; **tampoco >70%.**
-- No se inventó un fondo “puro Lecaps”; si aparece uno con cartera CNV >70%, se agrega en `config.json`.
+- **Balanz Lecaps:** ≈ **62,5%** letras/Lecaps (CNV 2026-09-18). Mejor proxy dedicado encontrado; **no >70%.** Comparación primaria.
+- **Fima Ahorro Plus:** ≈ **23,9%** Lecaps (CNV 2026-10-02). Comparación secundaria same-manager, no proxy Lecaps.
+- Los % y fechas viven en `config.json` → `funds[].lecaps_exposure` y se muestran en el sitio junto a cada fondo.
+- Benchmark puro Lecaps: placeholder en `config.json` → `benchmarks.pure_lecaps_portfolio` (pendiente de definición; sin datos).
 
 ### Fees
 
