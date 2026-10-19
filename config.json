@@ -1,43 +1,95 @@
 {
+  "base_fund": "premium",
+  "comparisons": [
+    {
+      "id": "primary",
+      "label": "Comparación principal",
+      "base": "premium",
+      "compare": "balanz_lecaps",
+      "description": "Fima Premium A (money market, T+0) vs Balanz Lecaps A (fondo de Lecaps más cercano verificado, T+0)."
+    },
+    {
+      "id": "secondary",
+      "label": "Comparación secundaria",
+      "base": "premium",
+      "compare": "ahorro_plus",
+      "description": "Fima Premium A (T+0) vs Fima Ahorro Plus A (T+1): mismo gestor, renta fija corta mixta. No es un fondo de Lecaps."
+    }
+  ],
   "funds": [
     {
       "id": "premium",
       "name": "Fima Premium — Clase A",
-      "role": "money_market",
+      "role": "base",
+      "ui_label": "money market · base",
+      "manager": "Galicia Asset Management",
       "liquidity": "T+0",
       "cafci_fondo_id": 445,
       "cafci_clase_id": 575,
       "argentinadatos_categoria": "mercadoDinero",
-      "argentinadatos_nombre": "Fima Premium - Clase A"
-    },
-    {
-      "id": "ahorro_plus",
-      "name": "Fima Ahorro Plus — Clase A",
-      "role": "primary_compare",
-      "liquidity": "T+1",
-      "cafci_fondo_id": 641,
-      "cafci_clase_id": 1008,
-      "argentinadatos_categoria": "rentaFija",
-      "argentinadatos_nombre": "Fima Ahorro Plus - Clase A"
+      "argentinadatos_nombre": "Fima Premium - Clase A",
+      "lecaps_exposure": {
+        "pct": null,
+        "as_of": null,
+        "source": null,
+        "note": "Money market (base de comparación). % Lecaps no cargado: sin cifra CNV verificada en esta versión."
+      }
     },
     {
       "id": "balanz_lecaps",
       "name": "Balanz Lecaps — Clase A",
-      "role": "secondary_lecaps",
-      "liquidity": "verificar ficha",
-      "cafci_fondo_id": null,
-      "cafci_clase_id": null,
+      "role": "primary_compare",
+      "ui_label": "principal · fondo de Lecaps más cercano verificado",
+      "manager": "Balanz S.G.F.C.I.S.A.U.",
+      "liquidity": "T+0",
+      "cafci_fondo_id": 1120,
+      "cafci_clase_id": 3671,
+      "ids_source": "CAFCI Planilla Diaria (https://api.pub.cafci.org.ar/pb_get), fila 'Balanz Lecaps - Clase A': Codigo CNV 1120, Código CAFCI 3671, Plazo Liq. 0.",
       "argentinadatos_categoria": "rentaFija",
-      "argentinadatos_nombre": "Balanz Lecaps - Clase A"
+      "argentinadatos_nombre": "Balanz Lecaps - Clase A",
+      "lecaps_exposure": {
+        "pct": 62.5,
+        "as_of": "2026-09-18",
+        "source": "CNV — cartera del fondo",
+        "source_url": "https://www.cnv.gov.ar/SitioWeb/FondosComunesInversion/",
+        "note": "≈62,5% Letras/Lecaps; resto plazo fijo, bonos soberanos (Boncer/TAMAR) y cuotapartes. No es 100% Lecaps."
+      }
+    },
+    {
+      "id": "ahorro_plus",
+      "name": "Fima Ahorro Plus — Clase A",
+      "role": "secondary_compare",
+      "ui_label": "mismo gestor, renta fija corta mixta",
+      "manager": "Galicia Asset Management",
+      "liquidity": "T+1",
+      "cafci_fondo_id": 641,
+      "cafci_clase_id": 1008,
+      "argentinadatos_categoria": "rentaFija",
+      "argentinadatos_nombre": "Fima Ahorro Plus - Clase A",
+      "lecaps_exposure": {
+        "pct": 23.9,
+        "as_of": "2026-10-02",
+        "source": "CNV — cartera del fondo",
+        "source_url": "https://www.cnv.gov.ar/SitioWeb/FondosComunesInversion/",
+        "note": "≈23,9% Lecaps (S13N6+S30N6+S16O6); resto Boncer/Lecer/ON/TAMAR. No es proxy de Lecaps."
+      }
     }
   ],
+  "benchmarks": {
+    "pure_lecaps_portfolio": {
+      "status": "pendiente",
+      "note": "Cartera propia 100% Lecaps (benchmark puro). Composición y reglas a definir por Ray; sin datos hasta entonces.",
+      "composition": [],
+      "rules": null
+    }
+  },
   "lecap_tickers": ["S16A5", "S28A5", "S16Y5", "S30Y5", "S18J5", "S30J5"],
   "lookback_calendar_days": 320,
   "notional_ars": 100000000,
   "argentinadatos_base": "https://api.argentinadatos.com/v1/finanzas/fci",
   "cafci_api_base": "https://api.cafci.org.ar",
   "notes": {
-    "composition": "Ahorro Plus ≈23.9% Lecaps (CNV 2026-10-02). Balanz Lecaps ≈62.5% (CNV 2026-09-18). Ninguno >70% Lecaps puras verificado.",
-    "cafci": "api.cafci.org.ar requiere auth (401). Usamos ArgentinaDatos que republica el cierre CAFCI."
+    "composition": "% Lecaps según cartera CNV: Balanz Lecaps A ≈62,5% (2026-09-18); Fima Ahorro Plus A ≈23,9% (2026-10-02). Ninguno es 100% Lecaps.",
+    "cafci": "api.cafci.org.ar no es accesible sin auth (401/403). Series VCP vía ArgentinaDatos (republica cierre CAFCI); IDs verificados en la Planilla Diaria pública de CAFCI."
   }
 }

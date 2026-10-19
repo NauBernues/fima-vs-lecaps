@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fima Premium vs Lecaps / Ahorro Plus</title>
+  <title>Fima Premium vs Balanz Lecaps / Ahorro Plus</title>
   <style>
     :root {
       --bg: #0f1419;
@@ -62,14 +62,14 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Fima Premium vs Ahorro Plus / Lecaps</h1>
+    <h1>Fima Premium vs Balanz Lecaps / Ahorro Plus</h1>
     <p class="sub">Comparación diaria de cuotapartes (neto de fees del fondo). Datos públicos — sin inventar números.</p>
     <div class="meta" id="meta">Cargando…</div>
     <div id="warnings"></div>
 
-    <h2>Comparación principal (mismo gerente)</h2>
-    <p class="sub">Fima Premium Clase A (money market, <strong>T+0</strong>) vs Fima Ahorro Plus Clase A (renta fija corto, <strong>T+1</strong>). Galicia Asset Management.</p>
-    <div class="grid" id="kpi-primary"></div>
+    <div class="warn" id="lecaps-disclaimer">Ningún fondo de este comparador es 100% Lecaps. El % de Lecaps de cada fondo sale de su última cartera CNV (fecha al lado).</div>
+
+    <div id="comparisons"></div>
 
     <div class="card" style="margin-top:1rem; overflow-x:auto">
       <table id="tbl-funds">
@@ -77,6 +77,7 @@
           <tr>
             <th>Instrumento</th>
             <th>Liquidez</th>
+            <th>% Lecaps (cartera CNV)</th>
             <th class="num">Últ. paso</th>
             <th class="num">TNA*</th>
             <th class="num">MTD</th>
@@ -115,7 +116,7 @@
             <th class="num">Obs. negativas</th>
             <th class="num">Max drawdown</th>
             <th>Pico → valle</th>
-            <th>~ % Lecaps</th>
+            <th>% Lecaps (cartera CNV)</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -125,7 +126,7 @@
     <h2>Nota de liquidez</h2>
     <div class="card">
       <p style="margin:0; font-size:.92rem">
-        <strong>T+0</strong> (Premium): el rescate se acredita el mismo día hábil.<br/>
+        <strong>T+0</strong> (Premium, Balanz Lecaps A): el rescate se acredita el mismo día hábil (Balanz: Plazo Liq. 0 en planilla CAFCI).<br/>
         <strong>T+1</strong> (Ahorro Plus): el capital está un día más en el fondo. Ese día extra es un costo de oportunidad real si necesitás la plata mañana — no está metido en el spread de cuotaparte.
       </p>
     </div>
@@ -134,6 +135,9 @@
     <div class="card" id="lecaps-box">
       <p class="sub" style="margin:0">Sin fuente pública Byma usable sin API key. Tickers configurados en <code>config.json</code>; filas vacías a propósito (no se inventan tasas).</p>
     </div>
+
+    <h2>Benchmark puro Lecaps</h2>
+    <div class="card" id="benchmark-box"><p class="sub" style="margin:0">—</p></div>
 
     <h2>Fuentes y método</h2>
     <div class="card" id="sources"></div>
@@ -172,17 +176,22 @@
           w.appendChild(d);
         });
 
-        const order = ["premium", "ahorro_plus", "balanz_lecaps"];
+        const esc = (t) => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+        const lecapsCell = (f) => {
+          const e = f.lecaps_exposure || {};
+          if (e.pct == null) return `<span class="sub">n/d</span>`;
+          return `<strong>${e.pct.toLocaleString("es-AR")}%</strong> <span class="sub">(CNV ${esc(e.as_of)})</span>`;
+        };
+        const order = Object.keys(data.funds);
         const tb = document.querySelector("#tbl-funds tbody");
         order.forEach(id => {
           const f = data.funds[id]; if (!f) return;
           const m = f.metrics || {};
           const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td>${f.name}<span class="tag">${f.role}</span>
-              ${f.meets_70pct_lecaps ? '<span class="tag ok">>70% Lecaps</span>' : '<span class="tag">Lecaps ~'+(f.lecaps_pct_approx ?? "?")+'%</span>'}
-            </td>
-            <td>${f.liquidity || "—"}</td>
+            <td>${esc(f.name)}<span class="tag">${esc(f.ui_label || f.role)}</span></td>
+            <td>${esc(f.liquidity) || "—"}</td>
+            <td>${lecapsCell(f)}</td>
             <td class="num ${cls(m.last_step && m.last_step.return)}">${m.last_step ? fmtPct(m.last_step.return, 4) : "—"}</td>
             <td class="num">${fmtPct(m.last_tna)}</td>
             <td class="num ${cls(m.mtd && m.mtd.return)}">${m.mtd ? fmtPct(m.mtd.return) : "—"}</td>
@@ -193,34 +202,44 @@
           tb.appendChild(tr);
         });
 
-        // KPIs primary spread YTD / 30d
-        const sp = (data.spreads_vs_premium || {}).ahorro_plus || {};
-        const kpi = document.getElementById("kpi-primary");
-        [["Spread MTD", sp.mtd], ["Spread 30d", sp.rolling_30d], ["Spread YTD", sp.ytd]].forEach(([label, block]) => {
-          const el = document.createElement("div");
-          el.className = "kpi";
-          if (!block) {
-            el.innerHTML = `<div class="l">${label}</div><div class="v">—</div><div class="s">sin dato alineado</div>`;
-          } else {
-            el.innerHTML = `<div class="l">${label}</div>
-              <div class="v ${cls(block.spread)}">${fmtPct(block.spread)} · ${fmtBps(block.spread_bps)}</div>
-              <div class="s">${fmtMoney(block.dollar_spread_100m)} · ${block.compare_window}</div>`;
-          }
-          kpi.appendChild(el);
+        // Comparison blocks (primary, secondary) driven by config → data.comparisons
+        const cmpBox = document.getElementById("comparisons");
+        (data.comparisons || []).forEach(c => {
+          const base = data.funds[c.base] || {}, cmp = data.funds[c.compare] || {};
+          const sp = (data.spreads_vs_premium || {})[c.compare] || {};
+          const sec = document.createElement("div");
+          sec.innerHTML = `<h2>${esc(c.label)}: ${esc(base.name)} vs ${esc(cmp.name)}</h2>
+            <p class="sub">${esc(c.description)}<br/>
+              % Lecaps — ${esc(cmp.name)}: ${lecapsCell(cmp)}${cmp.lecaps_exposure && cmp.lecaps_exposure.note ? " · " + esc(cmp.lecaps_exposure.note) : ""}</p>
+            <div class="grid"></div>`;
+          const grid = sec.querySelector(".grid");
+          [["Spread MTD", sp.mtd], ["Spread 30d", sp.rolling_30d], ["Spread YTD", sp.ytd]].forEach(([label, block]) => {
+            const el = document.createElement("div");
+            el.className = "kpi";
+            if (!block) {
+              el.innerHTML = `<div class="l">${label}</div><div class="v">—</div><div class="s">sin dato alineado</div>`;
+            } else {
+              el.innerHTML = `<div class="l">${label}</div>
+                <div class="v ${cls(block.spread)}">${fmtPct(block.spread)} · ${fmtBps(block.spread_bps)}</div>
+                <div class="s">${fmtMoney(block.dollar_spread_100m)} · ${block.compare_window}</div>`;
+            }
+            grid.appendChild(el);
+          });
+          cmpBox.appendChild(sec);
         });
 
         const ts = document.querySelector("#tbl-spread tbody");
-        ["ahorro_plus", "balanz_lecaps"].forEach(id => {
+        Object.keys(data.spreads_vs_premium || {}).forEach(id => {
           const name = data.funds[id]?.name || id;
           const blocks = data.spreads_vs_premium[id] || {};
           ["mtd", "rolling_30d", "ytd"].forEach(k => {
             const b = blocks[k];
             const tr = document.createElement("tr");
             if (!b) {
-              tr.innerHTML = `<td>${name}</td><td>${k}</td><td class="num" colspan="3">—</td>`;
+              tr.innerHTML = `<td>${esc(name)}</td><td>${k}</td><td class="num" colspan="3">—</td>`;
             } else {
               tr.innerHTML = `
-                <td>${name}</td>
+                <td>${esc(name)}</td>
                 <td>${k.toUpperCase()} · ${b.compare_window}</td>
                 <td class="num ${cls(b.spread)}">${fmtPct(b.spread)}</td>
                 <td class="num ${cls(b.spread_bps)}">${fmtBps(b.spread_bps)}</td>
@@ -237,13 +256,18 @@
           const dd = m.max_drawdown || {};
           const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td>${f.name}</td>
+            <td>${esc(f.name)}</td>
             <td class="num">${m.negative_obs ?? "—"}</td>
             <td class="num ${cls(dd.max_drawdown)}">${dd.max_drawdown != null ? fmtPct(dd.max_drawdown, 3) : "—"}</td>
             <td>${dd.peak_date && dd.trough_date ? (dd.peak_date + " → " + dd.trough_date) : "—"}</td>
-            <td>${f.lecaps_pct_approx != null ? (f.lecaps_pct_approx + "%") : "—"} <span class="sub">(${f.composition_as_of || "?"})</span></td>`;
+            <td>${lecapsCell(f)}</td>`;
           trisk.appendChild(tr);
         });
+
+        const bm = (data.benchmarks || {}).pure_lecaps_portfolio;
+        document.getElementById("benchmark-box").innerHTML = bm
+          ? `<p style="margin:0 0 .4rem"><strong>Estado:</strong> ${esc(bm.status)}</p><p class="sub" style="margin:0">${esc(bm.note)}</p>`
+          : `<p class="sub" style="margin:0">Sin benchmark configurado.</p>`;
 
         const lb = document.getElementById("lecaps-box");
         const lt = data.lecap_tickers || {};
@@ -260,11 +284,11 @@
           <p style="margin:0; font-size:.85rem; color:var(--muted)">
             ${meth.returns || ""} ${meth.calendar_days || ""} ${meth.fees || ""}<br/>
             Composición: ${meth.composition_gate || ""}<br/>
-            CAFCI IDs: Premium fondo <code>445</code> / clase <code>575</code>; Ahorro Plus fondo <code>641</code> / clase <code>1008</code>.
+            CAFCI IDs: ${order.map(id => { const f = data.funds[id]; return `${esc(f.name)} fondo <code>${f.cafci_fondo_id ?? "?"}</code> / clase <code>${f.cafci_clase_id ?? "?"}</code>`; }).join("; ")}.
           </p>
-          <p style="margin:.6rem 0 0; font-size:.82rem; color:var(--muted)">
-            ${(data.funds.ahorro_plus && data.funds.ahorro_plus.composition_note) || ""}
-          </p>
+          <ul style="margin:.6rem 0 0; padding-left:1.1rem; font-size:.82rem; color:var(--muted)">
+            ${order.map(id => { const e = data.funds[id].lecaps_exposure || {}; return `<li>${esc(data.funds[id].name)}: ${e.pct != null ? e.pct + "% Lecaps — " + esc(e.source) + " " + esc(e.as_of) + ". " : ""}${esc(e.note)}</li>`; }).join("")}
+          </ul>
         `;
       })
       .catch(err => {

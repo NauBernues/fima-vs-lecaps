@@ -143,31 +143,6 @@ def metrics_for(points: list[dict], as_of: str):
     }
 
 
-COMPOSITION = {
-    "premium": {
-        "composition_note": "Money market: plazos fijos, liquidez remunerada y cauciones. Sin Lecaps (CNV 2026-10-02).",
-        "composition_as_of": "2026-10-02",
-        "lecaps_pct_approx": 0.0,
-        "meets_70pct_lecaps": False,
-        "manager": "Galicia Asset Management",
-    },
-    "ahorro_plus": {
-        "composition_note": "NO supera 70% Lecaps. CNV 2026-10-02: Lecaps ≈23,9% (S13N6+S30N6+S16O6). Resto Boncer/Lecer/ON/TAMAR. Comparación same-manager T+0 vs T+1, no proxy puro Lecaps.",
-        "composition_as_of": "2026-10-02",
-        "lecaps_pct_approx": 23.9,
-        "meets_70pct_lecaps": False,
-        "manager": "Galicia Asset Management",
-    },
-    "balanz_lecaps": {
-        "composition_note": "Cat. CAFCI Renta Fija LECAP. CNV 2026-09-18: Letras/Lecaps ≈62,5%. Mejor proxy dedicado público; no >70%.",
-        "composition_as_of": "2026-09-18",
-        "lecaps_pct_approx": 62.5,
-        "meets_70pct_lecaps": False,
-        "manager": "Balanz S.G.F.C.I.",
-    },
-}
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(ROOT / "data.json"))
@@ -231,18 +206,23 @@ def main():
         dollar_daily = None
         if m.get("last_step"):
             dollar_daily = notional * m["last_step"]["return"] / m["last_step"]["calendar_days"]
-        extra = COMPOSITION.get(fid, {})
+        exp = f.get("lecaps_exposure") or {}
         funds_out[fid] = {
             **{k: f[k] for k in f},
-            **extra,
+            # flat aliases kept for backwards compatibility with older consumers
+            "lecaps_pct_approx": exp.get("pct"),
+            "composition_as_of": exp.get("as_of"),
+            "composition_note": exp.get("note"),
+            "meets_70pct_lecaps": (exp.get("pct") or 0) > 70,
             "metrics": m,
             "dollar_yield_per_100m_per_calendar_day_last_step": dollar_daily,
             "series": pts,
         }
 
-    prem_m = funds_out["premium"]["metrics"]
+    base_id = cfg.get("base_fund", "premium")
+    prem_m = funds_out[base_id]["metrics"]
     spreads = {}
-    for fid in ["ahorro_plus", "balanz_lecaps"]:
+    for fid in [f["id"] for f in cfg["funds"] if f["id"] != base_id]:
         if fid not in funds_out:
             continue
         om = funds_out[fid]["metrics"]
@@ -299,7 +279,7 @@ def main():
             "returns": "Variación de VCP entre fechas publicadas. Ya neto de honorarios del fondo.",
             "calendar_days": "TNA/TEA = (1+r)^(365/días_calendario) - 1.",
             "fees": "Cuotaparte CAFCI ya descuenta fees del fondo. No se aplican fees de asesor ni costos Byma.",
-            "primary_comparison": "Fima Premium Clase A (T+0) vs Fima Ahorro Plus Clase A (T+1), mismo gerente Galicia.",
+            "primary_comparison": next((c["description"] for c in cfg.get("comparisons", []) if c["id"] == "primary"), None),
             "composition_gate": cfg.get("notes", {}).get("composition"),
             "data_source": "ArgentinaDatos (republica CAFCI). Estado CAFCI directo: " + cafci_status,
             "lecap_tickers": "Sin fuente pública Byma sin API key.",
@@ -316,11 +296,19 @@ def main():
                 "role": f"estado: {cafci_status}",
             },
             {
+                "name": "CAFCI Planilla Diaria",
+                "url": "https://api.pub.cafci.org.ar/pb_get",
+                "role": "verificación de IDs fondo/clase y plazo de liquidación",
+            },
+            {
                 "name": "CNV carteras",
                 "url": "https://www.cnv.gov.ar/SitioWeb/FondosComunesInversion/",
                 "role": "composición / % Lecaps",
             },
         ],
+        "base_fund": base_id,
+        "comparisons": cfg.get("comparisons", []),
+        "benchmarks": cfg.get("benchmarks", {}),
         "funds": funds_out,
         "spreads_vs_premium": spreads,
         "lecap_tickers": {

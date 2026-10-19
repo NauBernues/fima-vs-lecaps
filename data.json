@@ -1,5 +1,5 @@
 {
-  "generated_at_art": "2026-10-19T12:12:58-03:00",
+  "generated_at_art": "2026-10-19T20:40:14-03:00",
   "as_of": "2026-10-16",
   "timezone": "America/Buenos_Aires",
   "notional_ars": 100000000,
@@ -7,8 +7,8 @@
     "returns": "Variación de VCP entre fechas publicadas. Ya neto de honorarios del fondo.",
     "calendar_days": "TNA/TEA = (1+r)^(365/días_calendario) - 1.",
     "fees": "Cuotaparte CAFCI ya descuenta fees del fondo. No se aplican fees de asesor ni costos Byma.",
-    "primary_comparison": "Fima Premium Clase A (T+0) vs Fima Ahorro Plus Clase A (T+1), mismo gerente Galicia.",
-    "composition_gate": "Ahorro Plus ≈23.9% Lecaps (CNV 2026-10-02). Balanz Lecaps ≈62.5% (CNV 2026-09-18). Ninguno >70% Lecaps puras verificado.",
+    "primary_comparison": "Fima Premium A (money market, T+0) vs Balanz Lecaps A (fondo de Lecaps más cercano verificado, T+0).",
+    "composition_gate": "% Lecaps según cartera CNV: Balanz Lecaps A ≈62,5% (2026-09-18); Fima Ahorro Plus A ≈23,9% (2026-10-02). Ninguno es 100% Lecaps.",
     "data_source": "ArgentinaDatos (republica CAFCI). Estado CAFCI directo: HTTP 403",
     "lecap_tickers": "Sin fuente pública Byma sin API key."
   },
@@ -24,26 +24,63 @@
       "role": "estado: HTTP 403"
     },
     {
+      "name": "CAFCI Planilla Diaria",
+      "url": "https://api.pub.cafci.org.ar/pb_get",
+      "role": "verificación de IDs fondo/clase y plazo de liquidación"
+    },
+    {
       "name": "CNV carteras",
       "url": "https://www.cnv.gov.ar/SitioWeb/FondosComunesInversion/",
       "role": "composición / % Lecaps"
     }
   ],
+  "base_fund": "premium",
+  "comparisons": [
+    {
+      "id": "primary",
+      "label": "Comparación principal",
+      "base": "premium",
+      "compare": "balanz_lecaps",
+      "description": "Fima Premium A (money market, T+0) vs Balanz Lecaps A (fondo de Lecaps más cercano verificado, T+0)."
+    },
+    {
+      "id": "secondary",
+      "label": "Comparación secundaria",
+      "base": "premium",
+      "compare": "ahorro_plus",
+      "description": "Fima Premium A (T+0) vs Fima Ahorro Plus A (T+1): mismo gestor, renta fija corta mixta. No es un fondo de Lecaps."
+    }
+  ],
+  "benchmarks": {
+    "pure_lecaps_portfolio": {
+      "status": "pendiente",
+      "note": "Cartera propia 100% Lecaps (benchmark puro). Composición y reglas a definir por Ray; sin datos hasta entonces.",
+      "composition": [],
+      "rules": null
+    }
+  },
   "funds": {
     "premium": {
       "id": "premium",
       "name": "Fima Premium — Clase A",
-      "role": "money_market",
+      "role": "base",
+      "ui_label": "money market · base",
+      "manager": "Galicia Asset Management",
       "liquidity": "T+0",
       "cafci_fondo_id": 445,
       "cafci_clase_id": 575,
       "argentinadatos_categoria": "mercadoDinero",
       "argentinadatos_nombre": "Fima Premium - Clase A",
-      "composition_note": "Money market: plazos fijos, liquidez remunerada y cauciones. Sin Lecaps (CNV 2026-10-02).",
-      "composition_as_of": "2026-10-02",
-      "lecaps_pct_approx": 0.0,
+      "lecaps_exposure": {
+        "pct": null,
+        "as_of": null,
+        "source": null,
+        "note": "Money market (base de comparación). % Lecaps no cargado: sin cifra CNV verificada en esta versión."
+      },
+      "lecaps_pct_approx": null,
+      "composition_as_of": null,
+      "composition_note": "Money market (base de comparación). % Lecaps no cargado: sin cifra CNV verificada en esta versión.",
       "meets_70pct_lecaps": false,
-      "manager": "Galicia Asset Management",
       "metrics": {
         "n_obs": 157,
         "first_date": "2025-12-03",
@@ -721,468 +758,29 @@
         }
       ]
     },
-    "ahorro_plus": {
-      "id": "ahorro_plus",
-      "name": "Fima Ahorro Plus — Clase A",
-      "role": "primary_compare",
-      "liquidity": "T+1",
-      "cafci_fondo_id": 641,
-      "cafci_clase_id": 1008,
-      "argentinadatos_categoria": "rentaFija",
-      "argentinadatos_nombre": "Fima Ahorro Plus - Clase A",
-      "composition_note": "NO supera 70% Lecaps. CNV 2026-10-02: Lecaps ≈23,9% (S13N6+S30N6+S16O6). Resto Boncer/Lecer/ON/TAMAR. Comparación same-manager T+0 vs T+1, no proxy puro Lecaps.",
-      "composition_as_of": "2026-10-02",
-      "lecaps_pct_approx": 23.9,
-      "meets_70pct_lecaps": false,
-      "manager": "Galicia Asset Management",
-      "metrics": {
-        "n_obs": 96,
-        "first_date": "2025-12-03",
-        "last_date": "2026-10-16",
-        "last_vcp": 167374.57,
-        "last_step": {
-          "date": "2026-10-16",
-          "prev_date": "2026-10-15",
-          "calendar_days": 1,
-          "return": 0.002019669749033781
-        },
-        "last_tna": 1.0884789579151746,
-        "last_tea": 1.0884789579151746,
-        "mtd": {
-          "start": "2026-09-23",
-          "end": "2026-10-16",
-          "calendar_days": 23,
-          "return": 0.017710686171463097,
-          "tna": 0.32128004845429303,
-          "tea": 0.32128004845429303
-        },
-        "ytd": {
-          "start": "2025-12-29",
-          "end": "2026-10-16",
-          "calendar_days": 291,
-          "return": 0.24407148706218473,
-          "tna": 0.3151160618993023,
-          "tea": 0.3151160618993023
-        },
-        "rolling_30d": {
-          "start": "2026-09-10",
-          "end": "2026-10-16",
-          "calendar_days": 36,
-          "return": 0.02729770398572784,
-          "tna": 0.31397669696074426,
-          "tea": 0.31397669696074426
-        },
-        "negative_obs": 17,
-        "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
-        "max_drawdown": {
-          "max_drawdown": -0.0019733841947618957,
-          "peak_date": "2026-01-12",
-          "trough_date": "2026-01-15"
-        },
-        "coverage_gap_warning": "Solo 96 observaciones entre 2025-12-03 y 2026-10-16."
-      },
-      "dollar_yield_per_100m_per_calendar_day_last_step": 201966.9749033781,
-      "series": [
-        {
-          "date": "2025-12-03",
-          "vcp": 132552.53
-        },
-        {
-          "date": "2025-12-04",
-          "vcp": 132776.555
-        },
-        {
-          "date": "2025-12-05",
-          "vcp": 133105.793
-        },
-        {
-          "date": "2025-12-09",
-          "vcp": 133130.33
-        },
-        {
-          "date": "2025-12-10",
-          "vcp": 133408.914
-        },
-        {
-          "date": "2025-12-11",
-          "vcp": 133509.633
-        },
-        {
-          "date": "2025-12-15",
-          "vcp": 134330.767
-        },
-        {
-          "date": "2025-12-16",
-          "vcp": 134355.728
-        },
-        {
-          "date": "2025-12-17",
-          "vcp": 134504.44
-        },
-        {
-          "date": "2025-12-18",
-          "vcp": 134451.192
-        },
-        {
-          "date": "2025-12-19",
-          "vcp": 134645.994
-        },
-        {
-          "date": "2025-12-29",
-          "vcp": 134537.743
-        },
-        {
-          "date": "2026-01-05",
-          "vcp": 135351.896
-        },
-        {
-          "date": "2026-01-06",
-          "vcp": 135263.271
-        },
-        {
-          "date": "2026-01-09",
-          "vcp": 135788.335
-        },
-        {
-          "date": "2026-01-12",
-          "vcp": 135924.875
-        },
-        {
-          "date": "2026-01-13",
-          "vcp": 135879.575
-        },
-        {
-          "date": "2026-01-14",
-          "vcp": 135741.674
-        },
-        {
-          "date": "2026-01-15",
-          "vcp": 135656.643
-        },
-        {
-          "date": "2026-01-16",
-          "vcp": 135919.081
-        },
-        {
-          "date": "2026-01-19",
-          "vcp": 135999.263
-        },
-        {
-          "date": "2026-01-20",
-          "vcp": 136138.035
-        },
-        {
-          "date": "2026-01-21",
-          "vcp": 136271.309
-        },
-        {
-          "date": "2026-01-22",
-          "vcp": 136526.233
-        },
-        {
-          "date": "2026-01-23",
-          "vcp": 136962.62
-        },
-        {
-          "date": "2026-01-26",
-          "vcp": 137125.037
-        },
-        {
-          "date": "2026-01-27",
-          "vcp": 137392.785
-        },
-        {
-          "date": "2026-01-28",
-          "vcp": 137503.342
-        },
-        {
-          "date": "2026-01-29",
-          "vcp": 137470.339
-        },
-        {
-          "date": "2026-01-30",
-          "vcp": 137990.261
-        },
-        {
-          "date": "2026-02-02",
-          "vcp": 137963.151
-        },
-        {
-          "date": "2026-02-03",
-          "vcp": 138112.044
-        },
-        {
-          "date": "2026-02-04",
-          "vcp": 138447.421
-        },
-        {
-          "date": "2026-02-05",
-          "vcp": 138546.332
-        },
-        {
-          "date": "2026-02-09",
-          "vcp": 139046.279
-        },
-        {
-          "date": "2026-02-10",
-          "vcp": 139186.637
-        },
-        {
-          "date": "2026-02-11",
-          "vcp": 139259.735
-        },
-        {
-          "date": "2026-02-12",
-          "vcp": 139602.455
-        },
-        {
-          "date": "2026-02-13",
-          "vcp": 140493.179
-        },
-        {
-          "date": "2026-02-19",
-          "vcp": 140404.153
-        },
-        {
-          "date": "2026-02-20",
-          "vcp": 140873.912
-        },
-        {
-          "date": "2026-02-23",
-          "vcp": 140926.35
-        },
-        {
-          "date": "2026-02-24",
-          "vcp": 141443.62
-        },
-        {
-          "date": "2026-02-27",
-          "vcp": 142434.889
-        },
-        {
-          "date": "2026-03-02",
-          "vcp": 142666.157
-        },
-        {
-          "date": "2026-03-03",
-          "vcp": 142687.093
-        },
-        {
-          "date": "2026-03-04",
-          "vcp": 143029.995
-        },
-        {
-          "date": "2026-03-05",
-          "vcp": 143043.668
-        },
-        {
-          "date": "2026-03-06",
-          "vcp": 143182.031
-        },
-        {
-          "date": "2026-03-11",
-          "vcp": 143732.448
-        },
-        {
-          "date": "2026-03-12",
-          "vcp": 143779.109
-        },
-        {
-          "date": "2026-03-16",
-          "vcp": 145162.804
-        },
-        {
-          "date": "2026-03-18",
-          "vcp": 145418.614
-        },
-        {
-          "date": "2026-03-19",
-          "vcp": 145491.805
-        },
-        {
-          "date": "2026-03-20",
-          "vcp": 146107.39
-        },
-        {
-          "date": "2026-03-25",
-          "vcp": 146247.117
-        },
-        {
-          "date": "2026-03-26",
-          "vcp": 146906.511
-        },
-        {
-          "date": "2026-03-27",
-          "vcp": 147362.164
-        },
-        {
-          "date": "2026-03-31",
-          "vcp": 147563.276
-        },
-        {
-          "date": "2026-04-01",
-          "vcp": 147951.842
-        },
-        {
-          "date": "2026-04-06",
-          "vcp": 148172.386
-        },
-        {
-          "date": "2026-04-07",
-          "vcp": 148166.313
-        },
-        {
-          "date": "2026-04-08",
-          "vcp": 148137.93
-        },
-        {
-          "date": "2026-04-09",
-          "vcp": 148558.219
-        },
-        {
-          "date": "2026-04-10",
-          "vcp": 148963.781
-        },
-        {
-          "date": "2026-04-13",
-          "vcp": 149010.643
-        },
-        {
-          "date": "2026-04-14",
-          "vcp": 149305.756
-        },
-        {
-          "date": "2026-04-15",
-          "vcp": 149604.697
-        },
-        {
-          "date": "2026-04-16",
-          "vcp": 149956.248
-        },
-        {
-          "date": "2026-04-17",
-          "vcp": 150628.367
-        },
-        {
-          "date": "2026-04-20",
-          "vcp": 150617.887
-        },
-        {
-          "date": "2026-04-21",
-          "vcp": 150552.914
-        },
-        {
-          "date": "2026-04-22",
-          "vcp": 150561.909
-        },
-        {
-          "date": "2026-04-23",
-          "vcp": 150448.302
-        },
-        {
-          "date": "2026-04-24",
-          "vcp": 150608.004
-        },
-        {
-          "date": "2026-04-27",
-          "vcp": 150579.816
-        },
-        {
-          "date": "2026-04-28",
-          "vcp": 150421.45
-        },
-        {
-          "date": "2026-05-13",
-          "vcp": 152435.8
-        },
-        {
-          "date": "2026-05-21",
-          "vcp": 153270.859
-        },
-        {
-          "date": "2026-05-27",
-          "vcp": 153727.484
-        },
-        {
-          "date": "2026-06-09",
-          "vcp": 155196.903
-        },
-        {
-          "date": "2026-06-11",
-          "vcp": 155416.965
-        },
-        {
-          "date": "2026-06-19",
-          "vcp": 155923.865
-        },
-        {
-          "date": "2026-06-25",
-          "vcp": 156013.05
-        },
-        {
-          "date": "2026-07-06",
-          "vcp": 157373.854
-        },
-        {
-          "date": "2026-07-16",
-          "vcp": 157971.643
-        },
-        {
-          "date": "2026-07-21",
-          "vcp": 158467.074
-        },
-        {
-          "date": "2026-08-25",
-          "vcp": 160983.453
-        },
-        {
-          "date": "2026-09-09",
-          "vcp": 162794.239
-        },
-        {
-          "date": "2026-09-10",
-          "vcp": 162927.036
-        },
-        {
-          "date": "2026-09-23",
-          "vcp": 164461.838
-        },
-        {
-          "date": "2026-10-06",
-          "vcp": 166289.9
-        },
-        {
-          "date": "2026-10-07",
-          "vcp": 166272.81
-        },
-        {
-          "date": "2026-10-08",
-          "vcp": 166451.023
-        },
-        {
-          "date": "2026-10-15",
-          "vcp": 167037.21
-        },
-        {
-          "date": "2026-10-16",
-          "vcp": 167374.57
-        }
-      ]
-    },
     "balanz_lecaps": {
       "id": "balanz_lecaps",
       "name": "Balanz Lecaps — Clase A",
-      "role": "secondary_lecaps",
-      "liquidity": "verificar ficha",
-      "cafci_fondo_id": null,
-      "cafci_clase_id": null,
+      "role": "primary_compare",
+      "ui_label": "principal · fondo de Lecaps más cercano verificado",
+      "manager": "Balanz S.G.F.C.I.S.A.U.",
+      "liquidity": "T+0",
+      "cafci_fondo_id": 1120,
+      "cafci_clase_id": 3671,
+      "ids_source": "CAFCI Planilla Diaria (https://api.pub.cafci.org.ar/pb_get), fila 'Balanz Lecaps - Clase A': Codigo CNV 1120, Código CAFCI 3671, Plazo Liq. 0.",
       "argentinadatos_categoria": "rentaFija",
       "argentinadatos_nombre": "Balanz Lecaps - Clase A",
-      "composition_note": "Cat. CAFCI Renta Fija LECAP. CNV 2026-09-18: Letras/Lecaps ≈62,5%. Mejor proxy dedicado público; no >70%.",
-      "composition_as_of": "2026-09-18",
+      "lecaps_exposure": {
+        "pct": 62.5,
+        "as_of": "2026-09-18",
+        "source": "CNV — cartera del fondo",
+        "source_url": "https://www.cnv.gov.ar/SitioWeb/FondosComunesInversion/",
+        "note": "≈62,5% Letras/Lecaps; resto plazo fijo, bonos soberanos (Boncer/TAMAR) y cuotapartes. No es 100% Lecaps."
+      },
       "lecaps_pct_approx": 62.5,
+      "composition_as_of": "2026-09-18",
+      "composition_note": "≈62,5% Letras/Lecaps; resto plazo fijo, bonos soberanos (Boncer/TAMAR) y cuotapartes. No es 100% Lecaps.",
       "meets_70pct_lecaps": false,
-      "manager": "Balanz S.G.F.C.I.",
       "metrics": {
         "n_obs": 96,
         "first_date": "2025-12-03",
@@ -1616,41 +1214,465 @@
           "vcp": 2174.515
         }
       ]
+    },
+    "ahorro_plus": {
+      "id": "ahorro_plus",
+      "name": "Fima Ahorro Plus — Clase A",
+      "role": "secondary_compare",
+      "ui_label": "mismo gestor, renta fija corta mixta",
+      "manager": "Galicia Asset Management",
+      "liquidity": "T+1",
+      "cafci_fondo_id": 641,
+      "cafci_clase_id": 1008,
+      "argentinadatos_categoria": "rentaFija",
+      "argentinadatos_nombre": "Fima Ahorro Plus - Clase A",
+      "lecaps_exposure": {
+        "pct": 23.9,
+        "as_of": "2026-10-02",
+        "source": "CNV — cartera del fondo",
+        "source_url": "https://www.cnv.gov.ar/SitioWeb/FondosComunesInversion/",
+        "note": "≈23,9% Lecaps (S13N6+S30N6+S16O6); resto Boncer/Lecer/ON/TAMAR. No es proxy de Lecaps."
+      },
+      "lecaps_pct_approx": 23.9,
+      "composition_as_of": "2026-10-02",
+      "composition_note": "≈23,9% Lecaps (S13N6+S30N6+S16O6); resto Boncer/Lecer/ON/TAMAR. No es proxy de Lecaps.",
+      "meets_70pct_lecaps": false,
+      "metrics": {
+        "n_obs": 96,
+        "first_date": "2025-12-03",
+        "last_date": "2026-10-16",
+        "last_vcp": 167374.57,
+        "last_step": {
+          "date": "2026-10-16",
+          "prev_date": "2026-10-15",
+          "calendar_days": 1,
+          "return": 0.002019669749033781
+        },
+        "last_tna": 1.0884789579151746,
+        "last_tea": 1.0884789579151746,
+        "mtd": {
+          "start": "2026-09-23",
+          "end": "2026-10-16",
+          "calendar_days": 23,
+          "return": 0.017710686171463097,
+          "tna": 0.32128004845429303,
+          "tea": 0.32128004845429303
+        },
+        "ytd": {
+          "start": "2025-12-29",
+          "end": "2026-10-16",
+          "calendar_days": 291,
+          "return": 0.24407148706218473,
+          "tna": 0.3151160618993023,
+          "tea": 0.3151160618993023
+        },
+        "rolling_30d": {
+          "start": "2026-09-10",
+          "end": "2026-10-16",
+          "calendar_days": 36,
+          "return": 0.02729770398572784,
+          "tna": 0.31397669696074426,
+          "tea": 0.31397669696074426
+        },
+        "negative_obs": 17,
+        "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
+        "max_drawdown": {
+          "max_drawdown": -0.0019733841947618957,
+          "peak_date": "2026-01-12",
+          "trough_date": "2026-01-15"
+        },
+        "coverage_gap_warning": "Solo 96 observaciones entre 2025-12-03 y 2026-10-16."
+      },
+      "dollar_yield_per_100m_per_calendar_day_last_step": 201966.9749033781,
+      "series": [
+        {
+          "date": "2025-12-03",
+          "vcp": 132552.53
+        },
+        {
+          "date": "2025-12-04",
+          "vcp": 132776.555
+        },
+        {
+          "date": "2025-12-05",
+          "vcp": 133105.793
+        },
+        {
+          "date": "2025-12-09",
+          "vcp": 133130.33
+        },
+        {
+          "date": "2025-12-10",
+          "vcp": 133408.914
+        },
+        {
+          "date": "2025-12-11",
+          "vcp": 133509.633
+        },
+        {
+          "date": "2025-12-15",
+          "vcp": 134330.767
+        },
+        {
+          "date": "2025-12-16",
+          "vcp": 134355.728
+        },
+        {
+          "date": "2025-12-17",
+          "vcp": 134504.44
+        },
+        {
+          "date": "2025-12-18",
+          "vcp": 134451.192
+        },
+        {
+          "date": "2025-12-19",
+          "vcp": 134645.994
+        },
+        {
+          "date": "2025-12-29",
+          "vcp": 134537.743
+        },
+        {
+          "date": "2026-01-05",
+          "vcp": 135351.896
+        },
+        {
+          "date": "2026-01-06",
+          "vcp": 135263.271
+        },
+        {
+          "date": "2026-01-09",
+          "vcp": 135788.335
+        },
+        {
+          "date": "2026-01-12",
+          "vcp": 135924.875
+        },
+        {
+          "date": "2026-01-13",
+          "vcp": 135879.575
+        },
+        {
+          "date": "2026-01-14",
+          "vcp": 135741.674
+        },
+        {
+          "date": "2026-01-15",
+          "vcp": 135656.643
+        },
+        {
+          "date": "2026-01-16",
+          "vcp": 135919.081
+        },
+        {
+          "date": "2026-01-19",
+          "vcp": 135999.263
+        },
+        {
+          "date": "2026-01-20",
+          "vcp": 136138.035
+        },
+        {
+          "date": "2026-01-21",
+          "vcp": 136271.309
+        },
+        {
+          "date": "2026-01-22",
+          "vcp": 136526.233
+        },
+        {
+          "date": "2026-01-23",
+          "vcp": 136962.62
+        },
+        {
+          "date": "2026-01-26",
+          "vcp": 137125.037
+        },
+        {
+          "date": "2026-01-27",
+          "vcp": 137392.785
+        },
+        {
+          "date": "2026-01-28",
+          "vcp": 137503.342
+        },
+        {
+          "date": "2026-01-29",
+          "vcp": 137470.339
+        },
+        {
+          "date": "2026-01-30",
+          "vcp": 137990.261
+        },
+        {
+          "date": "2026-02-02",
+          "vcp": 137963.151
+        },
+        {
+          "date": "2026-02-03",
+          "vcp": 138112.044
+        },
+        {
+          "date": "2026-02-04",
+          "vcp": 138447.421
+        },
+        {
+          "date": "2026-02-05",
+          "vcp": 138546.332
+        },
+        {
+          "date": "2026-02-09",
+          "vcp": 139046.279
+        },
+        {
+          "date": "2026-02-10",
+          "vcp": 139186.637
+        },
+        {
+          "date": "2026-02-11",
+          "vcp": 139259.735
+        },
+        {
+          "date": "2026-02-12",
+          "vcp": 139602.455
+        },
+        {
+          "date": "2026-02-13",
+          "vcp": 140493.179
+        },
+        {
+          "date": "2026-02-19",
+          "vcp": 140404.153
+        },
+        {
+          "date": "2026-02-20",
+          "vcp": 140873.912
+        },
+        {
+          "date": "2026-02-23",
+          "vcp": 140926.35
+        },
+        {
+          "date": "2026-02-24",
+          "vcp": 141443.62
+        },
+        {
+          "date": "2026-02-27",
+          "vcp": 142434.889
+        },
+        {
+          "date": "2026-03-02",
+          "vcp": 142666.157
+        },
+        {
+          "date": "2026-03-03",
+          "vcp": 142687.093
+        },
+        {
+          "date": "2026-03-04",
+          "vcp": 143029.995
+        },
+        {
+          "date": "2026-03-05",
+          "vcp": 143043.668
+        },
+        {
+          "date": "2026-03-06",
+          "vcp": 143182.031
+        },
+        {
+          "date": "2026-03-11",
+          "vcp": 143732.448
+        },
+        {
+          "date": "2026-03-12",
+          "vcp": 143779.109
+        },
+        {
+          "date": "2026-03-16",
+          "vcp": 145162.804
+        },
+        {
+          "date": "2026-03-18",
+          "vcp": 145418.614
+        },
+        {
+          "date": "2026-03-19",
+          "vcp": 145491.805
+        },
+        {
+          "date": "2026-03-20",
+          "vcp": 146107.39
+        },
+        {
+          "date": "2026-03-25",
+          "vcp": 146247.117
+        },
+        {
+          "date": "2026-03-26",
+          "vcp": 146906.511
+        },
+        {
+          "date": "2026-03-27",
+          "vcp": 147362.164
+        },
+        {
+          "date": "2026-03-31",
+          "vcp": 147563.276
+        },
+        {
+          "date": "2026-04-01",
+          "vcp": 147951.842
+        },
+        {
+          "date": "2026-04-06",
+          "vcp": 148172.386
+        },
+        {
+          "date": "2026-04-07",
+          "vcp": 148166.313
+        },
+        {
+          "date": "2026-04-08",
+          "vcp": 148137.93
+        },
+        {
+          "date": "2026-04-09",
+          "vcp": 148558.219
+        },
+        {
+          "date": "2026-04-10",
+          "vcp": 148963.781
+        },
+        {
+          "date": "2026-04-13",
+          "vcp": 149010.643
+        },
+        {
+          "date": "2026-04-14",
+          "vcp": 149305.756
+        },
+        {
+          "date": "2026-04-15",
+          "vcp": 149604.697
+        },
+        {
+          "date": "2026-04-16",
+          "vcp": 149956.248
+        },
+        {
+          "date": "2026-04-17",
+          "vcp": 150628.367
+        },
+        {
+          "date": "2026-04-20",
+          "vcp": 150617.887
+        },
+        {
+          "date": "2026-04-21",
+          "vcp": 150552.914
+        },
+        {
+          "date": "2026-04-22",
+          "vcp": 150561.909
+        },
+        {
+          "date": "2026-04-23",
+          "vcp": 150448.302
+        },
+        {
+          "date": "2026-04-24",
+          "vcp": 150608.004
+        },
+        {
+          "date": "2026-04-27",
+          "vcp": 150579.816
+        },
+        {
+          "date": "2026-04-28",
+          "vcp": 150421.45
+        },
+        {
+          "date": "2026-05-13",
+          "vcp": 152435.8
+        },
+        {
+          "date": "2026-05-21",
+          "vcp": 153270.859
+        },
+        {
+          "date": "2026-05-27",
+          "vcp": 153727.484
+        },
+        {
+          "date": "2026-06-09",
+          "vcp": 155196.903
+        },
+        {
+          "date": "2026-06-11",
+          "vcp": 155416.965
+        },
+        {
+          "date": "2026-06-19",
+          "vcp": 155923.865
+        },
+        {
+          "date": "2026-06-25",
+          "vcp": 156013.05
+        },
+        {
+          "date": "2026-07-06",
+          "vcp": 157373.854
+        },
+        {
+          "date": "2026-07-16",
+          "vcp": 157971.643
+        },
+        {
+          "date": "2026-07-21",
+          "vcp": 158467.074
+        },
+        {
+          "date": "2026-08-25",
+          "vcp": 160983.453
+        },
+        {
+          "date": "2026-09-09",
+          "vcp": 162794.239
+        },
+        {
+          "date": "2026-09-10",
+          "vcp": 162927.036
+        },
+        {
+          "date": "2026-09-23",
+          "vcp": 164461.838
+        },
+        {
+          "date": "2026-10-06",
+          "vcp": 166289.9
+        },
+        {
+          "date": "2026-10-07",
+          "vcp": 166272.81
+        },
+        {
+          "date": "2026-10-08",
+          "vcp": 166451.023
+        },
+        {
+          "date": "2026-10-15",
+          "vcp": 167037.21
+        },
+        {
+          "date": "2026-10-16",
+          "vcp": 167374.57
+        }
+      ]
     }
   },
   "spreads_vs_premium": {
-    "ahorro_plus": {
-      "mtd": {
-        "compare_return": 0.017710686171463097,
-        "premium_return": 0.00764050051955012,
-        "spread": 0.010070185651912977,
-        "spread_bps": 100.70185651912978,
-        "compare_window": "2026-09-23→2026-10-16",
-        "premium_window": "2026-09-29→2026-10-15",
-        "dollar_spread_100m": 1007018.5651912977
-      },
-      "ytd": {
-        "compare_return": 0.24407148706218473,
-        "premium_return": 0.1606410828942122,
-        "spread": 0.08343040416797254,
-        "spread_bps": 834.3040416797254,
-        "compare_window": "2025-12-29→2026-10-16",
-        "premium_window": "2025-12-29→2026-10-15",
-        "dollar_spread_100m": 8343040.416797254
-      },
-      "rolling_30d": {
-        "compare_return": 0.02729770398572784,
-        "premium_return": 0.01378704888242499,
-        "spread": 0.013510655103302849,
-        "spread_bps": 135.1065510330285,
-        "compare_window": "2026-09-10→2026-10-16",
-        "premium_window": "2026-09-16→2026-10-15",
-        "dollar_spread_100m": 1351065.510330285
-      },
-      "last_aligned_step": {
-        "missing": "ventanas no alinean (premium 2026-10-14→2026-10-15 vs 2026-10-15→2026-10-16)"
-      }
-    },
     "balanz_lecaps": {
       "mtd": {
         "compare_return": 0.016002691255522006,
@@ -1678,6 +1700,38 @@
         "compare_window": "2026-09-10→2026-10-16",
         "premium_window": "2026-09-16→2026-10-15",
         "dollar_spread_100m": 1064413.5445134318
+      },
+      "last_aligned_step": {
+        "missing": "ventanas no alinean (premium 2026-10-14→2026-10-15 vs 2026-10-15→2026-10-16)"
+      }
+    },
+    "ahorro_plus": {
+      "mtd": {
+        "compare_return": 0.017710686171463097,
+        "premium_return": 0.00764050051955012,
+        "spread": 0.010070185651912977,
+        "spread_bps": 100.70185651912978,
+        "compare_window": "2026-09-23→2026-10-16",
+        "premium_window": "2026-09-29→2026-10-15",
+        "dollar_spread_100m": 1007018.5651912977
+      },
+      "ytd": {
+        "compare_return": 0.24407148706218473,
+        "premium_return": 0.1606410828942122,
+        "spread": 0.08343040416797254,
+        "spread_bps": 834.3040416797254,
+        "compare_window": "2025-12-29→2026-10-16",
+        "premium_window": "2025-12-29→2026-10-15",
+        "dollar_spread_100m": 8343040.416797254
+      },
+      "rolling_30d": {
+        "compare_return": 0.02729770398572784,
+        "premium_return": 0.01378704888242499,
+        "spread": 0.013510655103302849,
+        "spread_bps": 135.1065510330285,
+        "compare_window": "2026-09-10→2026-10-16",
+        "premium_window": "2026-09-16→2026-10-15",
+        "dollar_spread_100m": 1351065.510330285
       },
       "last_aligned_step": {
         "missing": "ventanas no alinean (premium 2026-10-14→2026-10-15 vs 2026-10-15→2026-10-16)"
