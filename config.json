@@ -29,10 +29,18 @@
       "argentinadatos_categoria": "mercadoDinero",
       "argentinadatos_nombre": "Fima Premium - Clase A",
       "lecaps_exposure": {
-        "pct": null,
-        "as_of": null,
-        "source": null,
-        "note": "Money market (base de comparación). % Lecaps no cargado: sin cifra CNV verificada en esta versión."
+        "pct": 0,
+        "as_of": "2026-10-02",
+        "source": "fonditos.ar (cita planilla CNV; no verificado directo en CNV)",
+        "source_url": "https://fonditos.ar",
+        "display_label": "0% (cartera 02/10, vía fonditos/CNV)",
+        "composition": {
+          "plazo_fijo": 62.34,
+          "liquidez_remunerada": 28.17,
+          "caucion": 9.39,
+          "otros": 0.12
+        },
+        "note": "Money market (base). 0% Lecaps. Cartera 02/10: plazo fijo 62,34%, liquidez remunerada 28,17%, caución 9,39%, otros 0,12%."
       }
     },
     {
@@ -83,7 +91,14 @@
       "rules": null
     }
   },
-  "lecap_tickers": ["S16A5", "S28A5", "S16Y5", "S30Y5", "S18J5", "S30J5"],
+  "lecap_tickers": [
+    "S16A5",
+    "S28A5",
+    "S16Y5",
+    "S30Y5",
+    "S18J5",
+    "S30J5"
+  ],
   "lookback_calendar_days": 320,
   "notional_ars": 100000000,
   "argentinadatos_base": "https://api.argentinadatos.com/v1/finanzas/fci",

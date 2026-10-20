@@ -179,6 +179,7 @@
         const esc = (t) => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
         const lecapsCell = (f) => {
           const e = f.lecaps_exposure || {};
+          if (e.display_label) return `<strong>${esc(e.display_label)}</strong>`;
           if (e.pct == null) return `<span class="sub">n/d</span>`;
           return `<strong>${e.pct.toLocaleString("es-AR")}%</strong> <span class="sub">(CNV ${esc(e.as_of)})</span>`;
         };
@@ -287,7 +288,7 @@
             CAFCI IDs: ${order.map(id => { const f = data.funds[id]; return `${esc(f.name)} fondo <code>${f.cafci_fondo_id ?? "?"}</code> / clase <code>${f.cafci_clase_id ?? "?"}</code>`; }).join("; ")}.
           </p>
           <ul style="margin:.6rem 0 0; padding-left:1.1rem; font-size:.82rem; color:var(--muted)">
-            ${order.map(id => { const e = data.funds[id].lecaps_exposure || {}; return `<li>${esc(data.funds[id].name)}: ${e.pct != null ? e.pct + "% Lecaps — " + esc(e.source) + " " + esc(e.as_of) + ". " : ""}${esc(e.note)}</li>`; }).join("")}
+            ${order.map(id => { const e = data.funds[id].lecaps_exposure || {}; return `<li>${esc(data.funds[id].name)}: ${e.display_label ? esc(e.display_label) + " — " : e.pct != null ? e.pct + "% Lecaps — " + esc(e.source) + " " + esc(e.as_of) + ". " : ""}${esc(e.note)}</li>`; }).join("")}
           </ul>
         `;
       })
