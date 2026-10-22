@@ -1,6 +1,6 @@
 {
-  "generated_at_art": "2026-10-21T08:56:55-03:00",
-  "as_of": "2026-10-19",
+  "generated_at_art": "2026-10-21T22:11:04-03:00",
+  "as_of": "2026-10-20",
   "timezone": "America/Buenos_Aires",
   "notional_ars": 100000000,
   "methodology": {
@@ -792,39 +792,39 @@
       "metrics": {
         "n_obs": 94,
         "first_date": "2025-12-05",
-        "last_date": "2026-10-19",
-        "last_vcp": 2177.743,
+        "last_date": "2026-10-20",
+        "last_vcp": 2179.695,
         "last_step": {
-          "date": "2026-10-19",
+          "date": "2026-10-20",
           "prev_date": "2026-10-15",
-          "calendar_days": 4,
-          "return": 0.0026699583414673267
+          "calendar_days": 5,
+          "return": 0.0035686923788091907
         },
-        "last_tna": 0.2754627201262754,
-        "last_tea": 0.2754627201262754,
+        "last_tna": 0.29699597044413495,
+        "last_tea": 0.29699597044413495,
         "mtd": {
           "start": "2026-09-23",
-          "end": "2026-10-19",
-          "calendar_days": 26,
-          "return": 0.017510915704363805,
-          "tna": 0.27595994749701,
-          "tea": 0.27595994749701
+          "end": "2026-10-20",
+          "calendar_days": 27,
+          "return": 0.018422952297963313,
+          "tna": 0.27990350323490065,
+          "tea": 0.27990350323490065
         },
         "ytd": {
           "start": "2025-12-29",
-          "end": "2026-10-19",
-          "calendar_days": 294,
-          "return": 0.23361737827070383,
-          "tna": 0.29777754143583324,
-          "tea": 0.29777754143583324
+          "end": "2026-10-20",
+          "calendar_days": 295,
+          "return": 0.23472311991348938,
+          "tna": 0.2980695287036106,
+          "tea": 0.2980695287036106
         },
         "rolling_30d": {
           "start": "2026-09-10",
-          "end": "2026-10-19",
-          "calendar_days": 39,
-          "return": 0.02595192061266638,
-          "tna": 0.270976118489497,
-          "tea": 0.270976118489497
+          "end": "2026-10-20",
+          "calendar_days": 40,
+          "return": 0.026871523223734872,
+          "tna": 0.27375090898739685,
+          "tea": 0.27375090898739685
         },
         "negative_obs": 9,
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
@@ -833,9 +833,9 @@
           "peak_date": "2026-01-12",
           "trough_date": "2026-01-15"
         },
-        "coverage_gap_warning": "Solo 94 observaciones entre 2025-12-05 y 2026-10-19."
+        "coverage_gap_warning": "Solo 94 observaciones entre 2025-12-05 y 2026-10-20."
       },
-      "dollar_yield_per_100m_per_calendar_day_last_step": 66748.95853668317,
+      "dollar_yield_per_100m_per_calendar_day_last_step": 71373.84757618382,
       "series": [
         {
           "date": "2025-12-05",
@@ -1210,8 +1210,8 @@
           "vcp": 2171.944
         },
         {
-          "date": "2026-10-19",
-          "vcp": 2177.743
+          "date": "2026-10-20",
+          "vcp": 2179.695
         }
       ]
     },
@@ -1240,39 +1240,39 @@
       "metrics": {
         "n_obs": 94,
         "first_date": "2025-12-05",
-        "last_date": "2026-10-19",
-        "last_vcp": 167453.107,
+        "last_date": "2026-10-20",
+        "last_vcp": 167583.069,
         "last_step": {
-          "date": "2026-10-19",
+          "date": "2026-10-20",
           "prev_date": "2026-10-15",
-          "calendar_days": 4,
-          "return": 0.002489846424039266
+          "calendar_days": 5,
+          "return": 0.0032678886339156943
         },
-        "last_tna": 0.25472460485690473,
-        "last_tea": 0.25472460485690473,
+        "last_tna": 0.2689209966084196,
+        "last_tea": 0.2689209966084196,
         "mtd": {
           "start": "2026-09-23",
-          "end": "2026-10-19",
-          "calendar_days": 26,
-          "return": 0.018188225526216018,
-          "tna": 0.2879353588868412,
-          "tea": 0.2879353588868412
+          "end": "2026-10-20",
+          "calendar_days": 27,
+          "return": 0.01897845140220311,
+          "tna": 0.28937339068675083,
+          "tea": 0.28937339068675083
         },
         "ytd": {
           "start": "2025-12-29",
-          "end": "2026-10-19",
-          "calendar_days": 294,
-          "return": 0.24465524146632966,
-          "tna": 0.3122092656135027,
-          "tea": 0.3122092656135027
+          "end": "2026-10-20",
+          "calendar_days": 295,
+          "return": 0.2456212306163037,
+          "tna": 0.3122602338444578,
+          "tea": 0.3122602338444578
         },
         "rolling_30d": {
           "start": "2026-09-10",
-          "end": "2026-10-19",
-          "calendar_days": 39,
-          "return": 0.027779741847141937,
-          "tna": 0.29232662836843626,
-          "tea": 0.29232662836843626
+          "end": "2026-10-20",
+          "calendar_days": 40,
+          "return": 0.028577411793092367,
+          "tna": 0.2931903858887579,
+          "tea": 0.2931903858887579
         },
         "negative_obs": 17,
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
@@ -1281,9 +1281,9 @@
           "peak_date": "2026-01-12",
           "trough_date": "2026-01-15"
         },
-        "coverage_gap_warning": "Solo 94 observaciones entre 2025-12-05 y 2026-10-19."
+        "coverage_gap_warning": "Solo 94 observaciones entre 2025-12-05 y 2026-10-20."
       },
-      "dollar_yield_per_100m_per_calendar_day_last_step": 62246.160600981646,
+      "dollar_yield_per_100m_per_calendar_day_last_step": 65357.77267831388,
       "series": [
         {
           "date": "2025-12-05",
@@ -1658,8 +1658,8 @@
           "vcp": 167037.21
         },
         {
-          "date": "2026-10-19",
-          "vcp": 167453.107
+          "date": "2026-10-20",
+          "vcp": 167583.069
         }
       ]
     }
@@ -1667,66 +1667,66 @@
   "spreads_vs_premium": {
     "balanz_lecaps": {
       "mtd": {
-        "compare_return": 0.017510915704363805,
+        "compare_return": 0.018422952297963313,
         "premium_return": 0.009589927092336747,
-        "spread": 0.007920988612027058,
-        "spread_bps": 79.20988612027058,
-        "compare_window": "2026-09-23→2026-10-19",
+        "spread": 0.008833025205626566,
+        "spread_bps": 88.33025205626566,
+        "compare_window": "2026-09-23→2026-10-20",
         "premium_window": "2026-09-29→2026-10-19",
-        "dollar_spread_100m": 792098.8612027058
+        "dollar_spread_100m": 883302.5205626566
       },
       "ytd": {
-        "compare_return": 0.23361737827070383,
+        "compare_return": 0.23472311991348938,
         "premium_return": 0.16288651126603249,
-        "spread": 0.07073086700467135,
-        "spread_bps": 707.3086700467135,
-        "compare_window": "2025-12-29→2026-10-19",
+        "spread": 0.07183660864745689,
+        "spread_bps": 718.3660864745689,
+        "compare_window": "2025-12-29→2026-10-20",
         "premium_window": "2025-12-29→2026-10-19",
-        "dollar_spread_100m": 7073086.700467135
+        "dollar_spread_100m": 7183660.864745689
       },
       "rolling_30d": {
-        "compare_return": 0.02595192061266638,
+        "compare_return": 0.026871523223734872,
         "premium_return": 0.014793619657224921,
-        "spread": 0.011158300955441458,
-        "spread_bps": 111.58300955441459,
-        "compare_window": "2026-09-10→2026-10-19",
+        "spread": 0.012077903566509951,
+        "spread_bps": 120.77903566509951,
+        "compare_window": "2026-09-10→2026-10-20",
         "premium_window": "2026-09-18→2026-10-19",
-        "dollar_spread_100m": 1115830.095544146
+        "dollar_spread_100m": 1207790.356650995
       },
       "last_aligned_step": {
-        "missing": "ventanas no alinean (premium 2026-10-16→2026-10-19 vs 2026-10-15→2026-10-19)"
+        "missing": "ventanas no alinean (premium 2026-10-16→2026-10-19 vs 2026-10-15→2026-10-20)"
       }
     },
     "ahorro_plus": {
       "mtd": {
-        "compare_return": 0.018188225526216018,
+        "compare_return": 0.01897845140220311,
         "premium_return": 0.009589927092336747,
-        "spread": 0.00859829843387927,
-        "spread_bps": 85.9829843387927,
-        "compare_window": "2026-09-23→2026-10-19",
+        "spread": 0.009388524309866364,
+        "spread_bps": 93.88524309866364,
+        "compare_window": "2026-09-23→2026-10-20",
         "premium_window": "2026-09-29→2026-10-19",
-        "dollar_spread_100m": 859829.843387927
+        "dollar_spread_100m": 938852.4309866364
       },
       "ytd": {
-        "compare_return": 0.24465524146632966,
+        "compare_return": 0.2456212306163037,
         "premium_return": 0.16288651126603249,
-        "spread": 0.08176873020029718,
-        "spread_bps": 817.6873020029718,
-        "compare_window": "2025-12-29→2026-10-19",
+        "spread": 0.08273471935027121,
+        "spread_bps": 827.3471935027121,
+        "compare_window": "2025-12-29→2026-10-20",
         "premium_window": "2025-12-29→2026-10-19",
-        "dollar_spread_100m": 8176873.020029718
+        "dollar_spread_100m": 8273471.935027122
       },
       "rolling_30d": {
-        "compare_return": 0.027779741847141937,
+        "compare_return": 0.028577411793092367,
         "premium_return": 0.014793619657224921,
-        "spread": 0.012986122189917015,
-        "spread_bps": 129.86122189917015,
-        "compare_window": "2026-09-10→2026-10-19",
+        "spread": 0.013783792135867445,
+        "spread_bps": 137.83792135867446,
+        "compare_window": "2026-09-10→2026-10-20",
         "premium_window": "2026-09-18→2026-10-19",
-        "dollar_spread_100m": 1298612.2189917015
+        "dollar_spread_100m": 1378379.2135867446
       },
       "last_aligned_step": {
-        "missing": "ventanas no alinean (premium 2026-10-16→2026-10-19 vs 2026-10-15→2026-10-19)"
+        "missing": "ventanas no alinean (premium 2026-10-16→2026-10-19 vs 2026-10-15→2026-10-20)"
       }
     }
   },
@@ -1744,8 +1744,8 @@
     "rows": []
   },
   "warnings": [
-    "Solo 94 observaciones entre 2025-12-05 y 2026-10-19.",
-    "Solo 94 observaciones entre 2025-12-05 y 2026-10-19.",
+    "Solo 94 observaciones entre 2025-12-05 y 2026-10-20.",
+    "Solo 94 observaciones entre 2025-12-05 y 2026-10-20.",
     "CAFCI API HTTP 403 — usando solo ArgentinaDatos."
   ]
 }
