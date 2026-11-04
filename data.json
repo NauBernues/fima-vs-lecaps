@@ -1,6 +1,6 @@
 {
-  "generated_at_art": "2026-11-03T22:36:22-03:00",
-  "as_of": "2026-11-02",
+  "generated_at_art": "2026-11-04T09:10:10-03:00",
+  "as_of": "2026-11-03",
   "timezone": "America/Buenos_Aires",
   "notional_ars": 100000000,
   "methodology": {
@@ -90,8 +90,8 @@
       "composition_note": "Money market (base). 0% Lecaps. Cartera 02/10: plazo fijo 62,34%, liquidez remunerada 28,17%, caución 9,39%, otros 0,12%.",
       "meets_70pct_lecaps": false,
       "metrics": {
-        "n_obs": 154,
-        "first_date": "2025-12-18",
+        "n_obs": 153,
+        "first_date": "2025-12-19",
         "last_date": "2026-11-02",
         "last_vcp": 86719.153,
         "last_step": {
@@ -130,16 +130,12 @@
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
         "max_drawdown": {
           "max_drawdown": 0.0,
-          "peak_date": "2025-12-18",
-          "trough_date": "2025-12-18"
+          "peak_date": "2025-12-19",
+          "trough_date": "2025-12-19"
         }
       },
       "dollar_yield_per_100m_per_calendar_day_last_step": 47736.44930218257,
       "series": [
-        {
-          "date": "2025-12-18",
-          "vcp": 73679.304
-        },
         {
           "date": "2025-12-19",
           "vcp": 73712.565
@@ -778,41 +774,41 @@
       "composition_note": "≈62,5% Letras/Lecaps; resto plazo fijo, bonos soberanos (Boncer/TAMAR) y cuotapartes. No es 100% Lecaps.",
       "meets_70pct_lecaps": false,
       "metrics": {
-        "n_obs": 89,
-        "first_date": "2025-12-18",
-        "last_date": "2026-11-02",
-        "last_vcp": 2193.949,
+        "n_obs": 88,
+        "first_date": "2025-12-19",
+        "last_date": "2026-11-03",
+        "last_vcp": 2194.074,
         "last_step": {
-          "date": "2026-11-02",
+          "date": "2026-11-03",
           "prev_date": "2026-10-27",
-          "calendar_days": 6,
-          "return": 0.003925651033921174
+          "calendar_days": 7,
+          "return": 0.003982849586111392
         },
-        "last_tna": 0.2691443304237022,
-        "last_tea": 0.2691443304237022,
+        "last_tna": 0.23030816470479532,
+        "last_tea": 0.23030816470479532,
         "mtd": {
           "start": "2026-10-27",
-          "end": "2026-11-02",
-          "calendar_days": 6,
-          "return": 0.003925651033921174,
-          "tna": 0.2691443304237022,
-          "tea": 0.2691443304237022
+          "end": "2026-11-03",
+          "calendar_days": 7,
+          "return": 0.003982849586111392,
+          "tna": 0.23030816470479532,
+          "tea": 0.23030816470479532
         },
         "ytd": {
           "start": "2025-12-29",
-          "end": "2026-11-02",
-          "calendar_days": 308,
-          "return": 0.24279752635624718,
-          "tna": 0.293810229005109,
-          "tea": 0.293810229005109
+          "end": "2026-11-03",
+          "calendar_days": 309,
+          "return": 0.2428683346069378,
+          "tna": 0.2928191218840248,
+          "tea": 0.2928191218840248
         },
         "rolling_30d": {
           "start": "2026-09-23",
-          "end": "2026-11-02",
-          "calendar_days": 40,
-          "return": 0.02508287525142916,
-          "tna": 0.2536481891533313,
-          "tea": 0.2536481891533313
+          "end": "2026-11-03",
+          "calendar_days": 41,
+          "return": 0.02514127923411369,
+          "tna": 0.24738760303043805,
+          "tea": 0.24738760303043805
         },
         "negative_obs": 8,
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
@@ -821,14 +817,10 @@
           "peak_date": "2026-01-12",
           "trough_date": "2026-01-15"
         },
-        "coverage_gap_warning": "Solo 89 observaciones entre 2025-12-18 y 2026-11-02."
+        "coverage_gap_warning": "Solo 88 observaciones entre 2025-12-19 y 2026-11-03."
       },
-      "dollar_yield_per_100m_per_calendar_day_last_step": 65427.51723201956,
+      "dollar_yield_per_100m_per_calendar_day_last_step": 56897.85123016274,
       "series": [
-        {
-          "date": "2025-12-18",
-          "vcp": 1765.298
-        },
         {
           "date": "2025-12-19",
           "vcp": 1767.414
@@ -1178,8 +1170,8 @@
           "vcp": 2185.37
         },
         {
-          "date": "2026-11-02",
-          "vcp": 2193.949
+          "date": "2026-11-03",
+          "vcp": 2194.074
         }
       ]
     },
@@ -1206,41 +1198,41 @@
       "composition_note": "≈23,9% Lecaps (S13N6+S30N6+S16O6); resto Boncer/Lecer/ON/TAMAR. No es proxy de Lecaps.",
       "meets_70pct_lecaps": false,
       "metrics": {
-        "n_obs": 89,
-        "first_date": "2025-12-18",
-        "last_date": "2026-11-02",
-        "last_vcp": 168733.432,
+        "n_obs": 88,
+        "first_date": "2025-12-19",
+        "last_date": "2026-11-03",
+        "last_vcp": 168832.142,
         "last_step": {
-          "date": "2026-11-02",
+          "date": "2026-11-03",
           "prev_date": "2026-10-27",
-          "calendar_days": 6,
-          "return": 0.003356672085661705
+          "calendar_days": 7,
+          "return": 0.003943641342006643
         },
-        "last_tna": 0.22612109461844332,
-        "last_tea": 0.22612109461844332,
+        "last_tna": 0.22780536442180388,
+        "last_tea": 0.22780536442180388,
         "mtd": {
           "start": "2026-10-27",
-          "end": "2026-11-02",
-          "calendar_days": 6,
-          "return": 0.003356672085661705,
-          "tna": 0.22612109461844332,
-          "tea": 0.22612109461844332
+          "end": "2026-11-03",
+          "calendar_days": 7,
+          "return": 0.003943641342006643,
+          "tna": 0.22780536442180388,
+          "tea": 0.22780536442180388
         },
         "ytd": {
           "start": "2025-12-29",
-          "end": "2026-11-02",
-          "calendar_days": 308,
-          "return": 0.2541717159622636,
-          "tna": 0.3078545108084656,
-          "tea": 0.3078545108084656
+          "end": "2026-11-03",
+          "calendar_days": 309,
+          "return": 0.25490541341993533,
+          "tna": 0.30762206599446107,
+          "tea": 0.30762206599446107
         },
         "rolling_30d": {
           "start": "2026-09-23",
-          "end": "2026-11-02",
-          "calendar_days": 40,
-          "return": 0.025973162235971126,
-          "tna": 0.2636185843091874,
-          "tea": 0.2636185843091874
+          "end": "2026-11-03",
+          "calendar_days": 41,
+          "return": 0.02657336226535434,
+          "tna": 0.26298647420598487,
+          "tea": 0.26298647420598487
         },
         "negative_obs": 16,
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
@@ -1249,14 +1241,10 @@
           "peak_date": "2026-01-12",
           "trough_date": "2026-01-15"
         },
-        "coverage_gap_warning": "Solo 89 observaciones entre 2025-12-18 y 2026-11-02."
+        "coverage_gap_warning": "Solo 88 observaciones entre 2025-12-19 y 2026-11-03."
       },
-      "dollar_yield_per_100m_per_calendar_day_last_step": 55944.534761028415,
+      "dollar_yield_per_100m_per_calendar_day_last_step": 56337.73345723776,
       "series": [
-        {
-          "date": "2025-12-18",
-          "vcp": 134451.192
-        },
         {
           "date": "2025-12-19",
           "vcp": 134645.994
@@ -1606,8 +1594,8 @@
           "vcp": 168168.944
         },
         {
-          "date": "2026-11-02",
-          "vcp": 168733.432
+          "date": "2026-11-03",
+          "vcp": 168832.142
         }
       ]
     }
@@ -1615,66 +1603,66 @@
   "spreads_vs_premium": {
     "balanz_lecaps": {
       "mtd": {
-        "compare_return": 0.003925651033921174,
+        "compare_return": 0.003982849586111392,
         "premium_return": 0.0019094579720873028,
-        "spread": 0.002016193061833871,
-        "spread_bps": 20.161930618338708,
-        "compare_window": "2026-10-27→2026-11-02",
+        "spread": 0.0020733916140240893,
+        "spread_bps": 20.733916140240893,
+        "compare_window": "2026-10-27→2026-11-03",
         "premium_window": "2026-10-29→2026-11-02",
-        "dollar_spread_100m": 201619.3061833871
+        "dollar_spread_100m": 207339.16140240894
       },
       "ytd": {
-        "compare_return": 0.24279752635624718,
+        "compare_return": 0.2428683346069378,
         "premium_return": 0.17062430279206087,
-        "spread": 0.07217322356418632,
-        "spread_bps": 721.7322356418632,
-        "compare_window": "2025-12-29→2026-11-02",
+        "spread": 0.07224403181487693,
+        "spread_bps": 722.4403181487693,
+        "compare_window": "2025-12-29→2026-11-03",
         "premium_window": "2025-12-29→2026-11-02",
-        "dollar_spread_100m": 7217322.356418632
+        "dollar_spread_100m": 7224403.181487693
       },
       "rolling_30d": {
-        "compare_return": 0.02508287525142916,
+        "compare_return": 0.02514127923411369,
         "premium_return": 0.01483968266945146,
-        "spread": 0.0102431925819777,
-        "spread_bps": 102.431925819777,
-        "compare_window": "2026-09-23→2026-11-02",
+        "spread": 0.01030159656466223,
+        "spread_bps": 103.0159656466223,
+        "compare_window": "2026-09-23→2026-11-03",
         "premium_window": "2026-10-02→2026-11-02",
-        "dollar_spread_100m": 1024319.25819777
+        "dollar_spread_100m": 1030159.656466223
       },
       "last_aligned_step": {
-        "missing": "ventanas no alinean (premium 2026-10-29→2026-11-02 vs 2026-10-27→2026-11-02)"
+        "missing": "ventanas no alinean (premium 2026-10-29→2026-11-02 vs 2026-10-27→2026-11-03)"
       }
     },
     "ahorro_plus": {
       "mtd": {
-        "compare_return": 0.003356672085661705,
+        "compare_return": 0.003943641342006643,
         "premium_return": 0.0019094579720873028,
-        "spread": 0.001447214113574402,
-        "spread_bps": 14.472141135744021,
-        "compare_window": "2026-10-27→2026-11-02",
+        "spread": 0.00203418336991934,
+        "spread_bps": 20.3418336991934,
+        "compare_window": "2026-10-27→2026-11-03",
         "premium_window": "2026-10-29→2026-11-02",
-        "dollar_spread_100m": 144721.4113574402
+        "dollar_spread_100m": 203418.33699193402
       },
       "ytd": {
-        "compare_return": 0.2541717159622636,
+        "compare_return": 0.25490541341993533,
         "premium_return": 0.17062430279206087,
-        "spread": 0.08354741317020276,
-        "spread_bps": 835.4741317020275,
-        "compare_window": "2025-12-29→2026-11-02",
+        "spread": 0.08428111062787447,
+        "spread_bps": 842.8111062787447,
+        "compare_window": "2025-12-29→2026-11-03",
         "premium_window": "2025-12-29→2026-11-02",
-        "dollar_spread_100m": 8354741.317020276
+        "dollar_spread_100m": 8428111.062787447
       },
       "rolling_30d": {
-        "compare_return": 0.025973162235971126,
+        "compare_return": 0.02657336226535434,
         "premium_return": 0.01483968266945146,
-        "spread": 0.011133479566519666,
-        "spread_bps": 111.33479566519667,
-        "compare_window": "2026-09-23→2026-11-02",
+        "spread": 0.01173367959590288,
+        "spread_bps": 117.33679595902879,
+        "compare_window": "2026-09-23→2026-11-03",
         "premium_window": "2026-10-02→2026-11-02",
-        "dollar_spread_100m": 1113347.9566519666
+        "dollar_spread_100m": 1173367.9595902879
       },
       "last_aligned_step": {
-        "missing": "ventanas no alinean (premium 2026-10-29→2026-11-02 vs 2026-10-27→2026-11-02)"
+        "missing": "ventanas no alinean (premium 2026-10-29→2026-11-02 vs 2026-10-27→2026-11-03)"
       }
     }
   },
@@ -1692,8 +1680,8 @@
     "rows": []
   },
   "warnings": [
-    "Solo 89 observaciones entre 2025-12-18 y 2026-11-02.",
-    "Solo 89 observaciones entre 2025-12-18 y 2026-11-02.",
+    "Solo 88 observaciones entre 2025-12-19 y 2026-11-03.",
+    "Solo 88 observaciones entre 2025-12-19 y 2026-11-03.",
     "CAFCI API HTTP 403 — usando solo ArgentinaDatos."
   ]
 }
