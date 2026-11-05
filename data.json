@@ -1,5 +1,5 @@
 {
-  "generated_at_art": "2026-11-04T22:43:10-03:00",
+  "generated_at_art": "2026-11-05T09:15:53-03:00",
   "as_of": "2026-11-03",
   "timezone": "America/Buenos_Aires",
   "notional_ars": 100000000,
@@ -90,8 +90,8 @@
       "composition_note": "Money market (base). 0% Lecaps. Cartera 02/10: plazo fijo 62,34%, liquidez remunerada 28,17%, caución 9,39%, otros 0,12%.",
       "meets_70pct_lecaps": false,
       "metrics": {
-        "n_obs": 153,
-        "first_date": "2025-12-19",
+        "n_obs": 152,
+        "first_date": "2025-12-22",
         "last_date": "2026-11-02",
         "last_vcp": 86719.153,
         "last_step": {
@@ -130,16 +130,12 @@
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
         "max_drawdown": {
           "max_drawdown": 0.0,
-          "peak_date": "2025-12-19",
-          "trough_date": "2025-12-19"
+          "peak_date": "2025-12-22",
+          "trough_date": "2025-12-22"
         }
       },
       "dollar_yield_per_100m_per_calendar_day_last_step": 47736.44930218257,
       "series": [
-        {
-          "date": "2025-12-19",
-          "vcp": 73712.565
-        },
         {
           "date": "2025-12-22",
           "vcp": 73812.283
@@ -774,8 +770,8 @@
       "composition_note": "≈62,5% Letras/Lecaps; resto plazo fijo, bonos soberanos (Boncer/TAMAR) y cuotapartes. No es 100% Lecaps.",
       "meets_70pct_lecaps": false,
       "metrics": {
-        "n_obs": 88,
-        "first_date": "2025-12-19",
+        "n_obs": 87,
+        "first_date": "2025-12-29",
         "last_date": "2026-11-03",
         "last_vcp": 2194.074,
         "last_step": {
@@ -810,21 +806,17 @@
           "tna": 0.24738760303043805,
           "tea": 0.24738760303043805
         },
-        "negative_obs": 8,
+        "negative_obs": 7,
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
         "max_drawdown": {
           "max_drawdown": -0.0026692169024962187,
           "peak_date": "2026-01-12",
           "trough_date": "2026-01-15"
         },
-        "coverage_gap_warning": "Solo 88 observaciones entre 2025-12-19 y 2026-11-03."
+        "coverage_gap_warning": "Solo 87 observaciones entre 2025-12-29 y 2026-11-03."
       },
       "dollar_yield_per_100m_per_calendar_day_last_step": 56897.85123016274,
       "series": [
-        {
-          "date": "2025-12-19",
-          "vcp": 1767.414
-        },
         {
           "date": "2025-12-29",
           "vcp": 1765.331
@@ -1198,8 +1190,8 @@
       "composition_note": "≈23,9% Lecaps (S13N6+S30N6+S16O6); resto Boncer/Lecer/ON/TAMAR. No es proxy de Lecaps.",
       "meets_70pct_lecaps": false,
       "metrics": {
-        "n_obs": 88,
-        "first_date": "2025-12-19",
+        "n_obs": 87,
+        "first_date": "2025-12-29",
         "last_date": "2026-11-03",
         "last_vcp": 168832.142,
         "last_step": {
@@ -1234,21 +1226,17 @@
           "tna": 0.26298647420598487,
           "tea": 0.26298647420598487
         },
-        "negative_obs": 16,
+        "negative_obs": 15,
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
         "max_drawdown": {
           "max_drawdown": -0.0019733841947618957,
           "peak_date": "2026-01-12",
           "trough_date": "2026-01-15"
         },
-        "coverage_gap_warning": "Solo 88 observaciones entre 2025-12-19 y 2026-11-03."
+        "coverage_gap_warning": "Solo 87 observaciones entre 2025-12-29 y 2026-11-03."
       },
       "dollar_yield_per_100m_per_calendar_day_last_step": 56337.73345723776,
       "series": [
-        {
-          "date": "2025-12-19",
-          "vcp": 134645.994
-        },
         {
           "date": "2025-12-29",
           "vcp": 134537.743
@@ -1680,8 +1668,8 @@
     "rows": []
   },
   "warnings": [
-    "Solo 88 observaciones entre 2025-12-19 y 2026-11-03.",
-    "Solo 88 observaciones entre 2025-12-19 y 2026-11-03.",
+    "Solo 87 observaciones entre 2025-12-29 y 2026-11-03.",
+    "Solo 87 observaciones entre 2025-12-29 y 2026-11-03.",
     "CAFCI API HTTP 403 — usando solo ArgentinaDatos."
   ]
 }
