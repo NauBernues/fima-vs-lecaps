@@ -1,5 +1,5 @@
 {
-  "generated_at_art": "2026-11-08T22:44:19-03:00",
+  "generated_at_art": "2026-11-09T09:18:58-03:00",
   "as_of": "2026-11-05",
   "timezone": "America/Buenos_Aires",
   "notional_ars": 100000000,
@@ -90,8 +90,8 @@
       "composition_note": "Money market (base). 0% Lecaps. Cartera 02/10: plazo fijo 62,34%, liquidez remunerada 28,17%, caución 9,39%, otros 0,12%.",
       "meets_70pct_lecaps": false,
       "metrics": {
-        "n_obs": 153,
-        "first_date": "2025-12-23",
+        "n_obs": 152,
+        "first_date": "2025-12-29",
         "last_date": "2026-11-04",
         "last_vcp": 86802.601,
         "last_step": {
@@ -130,16 +130,12 @@
         "negative_obs_note": "Observaciones con retorno < 0 entre fechas con VCP publicado.",
         "max_drawdown": {
           "max_drawdown": 0.0,
-          "peak_date": "2025-12-23",
-          "trough_date": "2025-12-23"
+          "peak_date": "2025-12-29",
+          "trough_date": "2025-12-29"
         }
       },
       "dollar_yield_per_100m_per_calendar_day_last_step": 48192.27727399511,
       "series": [
-        {
-          "date": "2025-12-23",
-          "vcp": 73846.014
-        },
         {
           "date": "2025-12-29",
           "vcp": 74079.406
