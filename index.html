@@ -54,6 +54,10 @@
     .kpi .l { color: var(--muted); font-size: .75rem; text-transform: uppercase; }
     .kpi .v { font-size: 1.25rem; font-weight: 650; margin-top: .2rem; font-variant-numeric: tabular-nums; }
     .kpi .s { color: var(--muted); font-size: .78rem; margin-top: .15rem; }
+    .asof {
+      color: var(--text); background: #243044; border-radius: 999px;
+      padding: .15rem .65rem;
+    }
     @media (max-width: 640px) {
       table { font-size: .8rem; }
       th, td { padding: .45rem .25rem; }
@@ -92,6 +96,7 @@
     </div>
 
     <h2>Spread vs Fima Premium (por $100M)</h2>
+    <p class="sub" id="spread-note" style="margin-top:-.3rem"></p>
     <div class="card" style="overflow-x:auto">
       <table id="tbl-spread">
         <thead>
@@ -153,6 +158,15 @@
     const fmtBps = (x) => x == null ? "—" : (x.toLocaleString("es-AR",{maximumFractionDigits:0}) + " bps");
     const fmtMoney = (x) => x == null ? "—" : ("$ " + Math.round(x).toLocaleString("es-AR"));
     const cls = (x) => x == null ? "" : (x >= 0 ? "pos" : "neg");
+    const fmtDateAR = (iso) => {
+      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
+      return m ? `${m[3]}/${m[2]}/${m[1]}` : (iso || "—");
+    };
+    const fmtWindow = (w) => {
+      if (!w) return "";
+      const parts = String(w).split("→");
+      return parts.length === 2 ? `${fmtDateAR(parts[0])}→${fmtDateAR(parts[1])}` : w;
+    };
 
     function stepLabel(m) {
       if (!m || !m.last_step) return "—";
@@ -164,11 +178,18 @@
       .then(r => { if (!r.ok) throw new Error("No se pudo cargar data.json"); return r.json(); })
       .then(data => {
         document.getElementById("meta").innerHTML = `
-          <span>Última generación: <strong>${data.generated_at_art}</strong> (${data.timezone})</span>
-          <span>As-of series: <strong>${data.as_of}</strong></span>
-          <span>Nocional: <strong>$ ${(data.notional_ars).toLocaleString("es-AR")}</strong></span>
+          <span class="asof">datos al <strong>${fmtDateAR(data.as_of)}</strong></span>
+          <span>Generado: <strong>${data.generated_at_art || "—"}</strong>${data.timezone ? " (" + data.timezone + ")" : ""}</span>
+          <span>Nocional: <strong>$ ${(data.notional_ars || 0).toLocaleString("es-AR")}</strong></span>
         `;
         const w = document.getElementById("warnings");
+        const lasts = Object.entries(data.funds || {}).map(([id, f]) => [f.name || id, f.metrics && f.metrics.last_date]).filter(([, d]) => d);
+        if (new Set(lasts.map(([, d]) => d)).size > 1) {
+          const d = document.createElement("div");
+          d.className = "warn";
+          d.textContent = "Las series no cierran el mismo día: " + lasts.map(([n, day]) => `${n} al ${fmtDateAR(day)}`).join("; ") + ".";
+          w.appendChild(d);
+        }
         (data.warnings || []).forEach(t => {
           const d = document.createElement("div");
           d.className = "warn";
@@ -190,7 +211,7 @@
           const m = f.metrics || {};
           const tr = document.createElement("tr");
           tr.innerHTML = `
-            <td>${esc(f.name)}<span class="tag">${esc(f.ui_label || f.role)}</span></td>
+            <td>${esc(f.name)}<span class="tag">${esc(f.ui_label || f.role)}</span>${m.last_date ? `<div class="sub">serie al ${fmtDateAR(m.last_date)}</div>` : ""}</td>
             <td>${esc(f.liquidity) || "—"}</td>
             <td>${lecapsCell(f)}</td>
             <td class="num ${cls(m.last_step && m.last_step.return)}">${m.last_step ? fmtPct(m.last_step.return, 4) : "—"}</td>
@@ -222,7 +243,7 @@
             } else {
               el.innerHTML = `<div class="l">${label}</div>
                 <div class="v ${cls(block.spread)}">${fmtPct(block.spread)} · ${fmtBps(block.spread_bps)}</div>
-                <div class="s">${fmtMoney(block.dollar_spread_100m)} · ${block.compare_window}</div>`;
+                <div class="s">${fmtMoney(block.dollar_spread_100m)} · ${fmtWindow(block.compare_window)}</div>`;
             }
             grid.appendChild(el);
           });
@@ -241,7 +262,7 @@
             } else {
               tr.innerHTML = `
                 <td>${esc(name)}</td>
-                <td>${k.toUpperCase()} · ${b.compare_window}</td>
+                <td>${k.toUpperCase()} · ${fmtWindow(b.compare_window)}</td>
                 <td class="num ${cls(b.spread)}">${fmtPct(b.spread)}</td>
                 <td class="num ${cls(b.spread_bps)}">${fmtBps(b.spread_bps)}</td>
                 <td class="num ${cls(b.dollar_spread_100m)}">${fmtMoney(b.dollar_spread_100m)}</td>`;
@@ -249,6 +270,12 @@
             ts.appendChild(tr);
           });
         });
+        const unequal = Object.values(data.spreads_vs_premium || {}).some(blocks =>
+          ["mtd", "rolling_30d", "ytd"].some(k => blocks[k] && blocks[k].compare_window && blocks[k].premium_window && blocks[k].compare_window !== blocks[k].premium_window)
+        );
+        document.getElementById("spread-note").textContent = unequal
+          ? "Ojo: estos spreads mezclan ventanas distintas (el archivo publicado es anterior al control de fechas comunes)."
+          : "Spread sobre fechas comunes a las dos series: la ventana es la misma para las dos.";
 
         const trisk = document.querySelector("#tbl-risk tbody");
         order.forEach(id => {

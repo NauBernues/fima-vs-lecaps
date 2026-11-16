@@ -3,7 +3,7 @@
 ```json
 {
   "generated_at_art": "ISO-8601 con offset -03:00",
-  "as_of": "YYYY-MM-DD",
+  "as_of": "YYYY-MM-DD — último día hábil común a los tres fondos; la página lo muestra como datos al dd/mm/aaaa",
   "timezone": "America/Buenos_Aires",
   "notional_ars": 100000000,
   "methodology": { "...": "..." },
@@ -34,8 +34,21 @@
   },
   "spreads_vs_premium": {
     "balanz_lecaps": {
-      "mtd": { "spread": 0.0, "spread_bps": 0.0, "dollar_spread_100m": 0.0 }
+      "mtd": {
+        "spread": 0.0,
+        "spread_bps": 0.0,
+        "dollar_spread_100m": 0.0,
+        "window": "YYYY-MM-DD→YYYY-MM-DD",
+        "compare_window": "igual que window",
+        "premium_window": "igual que window",
+        "windows_equal": true
+      }
     }
+  },
+  "quality": {
+    "gate": "pass",
+    "min_coverage": 0.95,
+    "coverage": { "premium": { "ratio": 0.0, "missing": ["YYYY-MM-DD"] } }
   },
   "lecap_tickers": { "status": "sin_fuente_publica", "configured": [], "rows": [] },
   "warnings": []

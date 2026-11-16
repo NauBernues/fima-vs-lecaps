@@ -28,6 +28,7 @@
       "cafci_clase_id": 575,
       "argentinadatos_categoria": "mercadoDinero",
       "argentinadatos_nombre": "Fima Premium - Clase A",
+      "argentinadatos_slug": "fima-premium-clase-a",
       "lecaps_exposure": {
         "pct": 0,
         "as_of": "2026-10-02",
@@ -55,6 +56,7 @@
       "ids_source": "CAFCI Planilla Diaria (https://api.pub.cafci.org.ar/pb_get), fila 'Balanz Lecaps - Clase A': Codigo CNV 1120, Código CAFCI 3671, Plazo Liq. 0.",
       "argentinadatos_categoria": "rentaFija",
       "argentinadatos_nombre": "Balanz Lecaps - Clase A",
+      "argentinadatos_slug": "balanz-lecaps-clase-a",
       "lecaps_exposure": {
         "pct": 62.5,
         "as_of": "2026-09-18",
@@ -74,6 +76,7 @@
       "cafci_clase_id": 1008,
       "argentinadatos_categoria": "rentaFija",
       "argentinadatos_nombre": "Fima Ahorro Plus - Clase A",
+      "argentinadatos_slug": "fima-ahorro-plus-clase-a",
       "lecaps_exposure": {
         "pct": 23.9,
         "as_of": "2026-10-02",
@@ -105,6 +108,6 @@
   "cafci_api_base": "https://api.cafci.org.ar",
   "notes": {
     "composition": "% Lecaps según cartera CNV: Balanz Lecaps A ≈62,5% (2026-09-18); Fima Ahorro Plus A ≈23,9% (2026-10-02). Ninguno es 100% Lecaps.",
-    "cafci": "api.cafci.org.ar no es accesible sin auth (401/403). Series VCP vía ArgentinaDatos (republica cierre CAFCI); IDs verificados en la Planilla Diaria pública de CAFCI."
+    "cafci": "api.cafci.org.ar no es accesible sin auth (401/403). Series VCP vía el histórico por fondo de ArgentinaDatos (/fondos/{slug}/historico); el listado diario por categoría viene incompleto en muchos días. IDs verificados en la Planilla Diaria pública de CAFCI."
   }
 }
