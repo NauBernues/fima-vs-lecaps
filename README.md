@@ -24,7 +24,7 @@ Dashboard estático (HTML + `data.json`) que compara el rendimiento diario de:
 
 | Fuente | Rol | Estado |
 |--------|-----|--------|
-| [ArgentinaDatos FCI](https://api.argentinadatos.com/v1/finanzas/fci/{categoria}/{YYYY}/{MM}/{DD}) | Serie diaria VCP (republica cierre CAFCI) | **En uso** |
+| [ArgentinaDatos FCI histórico](https://api.argentinadatos.com/v1/finanzas/fci/fondos/{slug}/historico) | Serie diaria de VCP por fondo | **En uso** |
 | [CAFCI API](https://api.cafci.org.ar/) | Oficial | **401 Unauthorized** desde este entorno |
 | CNV carteras | % Lecaps | Manual / verificado al armar |
 
@@ -56,7 +56,21 @@ python scripts/fetch_data.py --out data.json
 ```
 
 GitHub Action: `.github/workflows/daily-update.yml`  
-Crons: `30 0 * * 1-5` y `30 11 * * 1-5` (UTC). Commitea `data.json` a `main`.
+Crons: `30 0 * * 1-5` y `30 11 * * 1-5` (UTC). Commitea `data.json` a `main` solo si pasa el control.
+
+### Control antes de publicar
+
+La serie sale de `/fondos/{slug}/historico` (3 llamadas). El listado diario por categoría queda afuera: en muchos días trae solo un subconjunto de fondos y el script viejo se lo tragaba como "no hay VCP".
+
+Antes de pisar `data.json` se exige:
+
+- los tres fondos cierran el mismo día, y ese día es el hábil anterior (o el mismo día de la corrida, si ya está publicado);
+- cobertura ≥ 95% de los días hábiles de la ventana (`lookback_calendar_days`);
+- ninguna variación mayor a 2% por día calendario.
+
+Si no pasa, el archivo publicado no se toca y el workflow termina en rojo (`::error::`). Los hábiles faltantes quedan en el log como `::warning::`. La página muestra **datos al dd/mm/aaaa** con el `as_of` del último archivo bueno.
+
+Los spreads (MTD, 30d, YTD y el último paso) usan solo fechas presentes en las dos series, así que la ventana es la misma.
 
 **Para Nerdo:** activar Pages + revisar que el token del workflow tenga `contents: write` (ya declarado en el YAML).
 

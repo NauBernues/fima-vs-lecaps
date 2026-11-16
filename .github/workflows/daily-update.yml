@@ -26,8 +26,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Si el gate no pasa (series desalineadas, cobertura <95% o VCP fuera de rango)
+      # el script sale con código 2 y no toca data.json: Pages sigue sirviendo el último archivo bueno.
       - name: Fetch series and write data.json
-        run: python scripts/fetch_data.py --out data.json
+        run: python -u scripts/fetch_data.py --out data.json
 
       - name: Commit if changed
         run: |
